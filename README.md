@@ -64,7 +64,7 @@ If you have the following versions of OS or newer, then your machine most-likely
 * `C`: option adds a comment to the key.  
     * `"youremail@email.com"`: is the comment added to the key. This comment is embedded in the public key file and is visible when the key is used. It's helpful for recognizing which key belongs to whom, especially when managing multiple keys on servers or services like GitHub.  
     * **Example**: Let's say your username is Chelsie, your email address is "chelsie@gmail.com"  and you choose to name your key "git-key", then the command to create your SSH key pair might look like this:
-    > `ssh-keygen -t ed25519 -f C:\Users\tom\.ssh\git-key -C "chelsie@gmail.com"`  
+    > `ssh-keygen -t ed25519 -f C:\Users\Chelsie\.ssh\git-key -C "chelsie@gmail.com"`  
 
 ### macOS & Linux Users  
 You don't have to manually create an .ssh directory as running the `ssh-keygen` command will automatically do that.  
