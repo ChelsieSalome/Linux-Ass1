@@ -48,7 +48,7 @@ If you have the following versions of OS or newer, then your machine most-likely
 > `mkdir .ssh`  
 2. Create the ssh key pair using the command:
 >`ssh-keygen -t ed25519 -f C:\Users\your-user-name\.ssh\key-name -C "youremail@email.com"`  
-### Explanation of the command:  
+**Explanation of the command:**  
     * `ssh-keygen`: Command-line utility used to generate, manage and convert SSH keys.  
     * `-t`: specifies the **type of key** to generate.  
     * `ed25519`: is a type of public-key algorithm. Other options of public key types include: rsa, dsa & ecdsa. Ed25519 is preferred for new keys due to its superior performance, smaller key sizes, better security, and resistance to certain attacks. (VulnerX, 2024) You can refer to [RSA vs ECDSA vs Ed25519](https://vulnerx.com/ssh-key-algorithms/) for further reading about each public key advantages.  
@@ -65,7 +65,7 @@ If you have the following versions of OS or newer, then your machine most-likely
 You don't have to manually create an .ssh directory as running the `ssh-keygen` command will automatically do that.  
 * Open your terminal and type:  
 > `ssh-keygen -t ed25519 -f ~/.ssh/key-name -C "youremail@email.com"`  
-### Explanation of the Command:  
+**Explanation of the Command:** 
     * The command is similar to the Windows-command, the only difference is the path.  
     * `-f ~/.ssh/key-name`: This tells ssh-keygen where to save the generated private key. It will create the .ssh directory if it does not already exist and place key-name and key-name.pub (the private and public keys, respectively) inside it. (macOS & Linux use the tilde ~ to represent the user's home directory).  
 
@@ -77,8 +77,8 @@ Because we are just using this for a small project, and to simplify your life ie
 # Step 5: Verifying your SSH Keys  
 1. type `cd .ssh` > `ls` to view the files in the .ssh directory.  
 > The keys are successfully created if you see the following files in the .ssh directory:  
-    * key-name *(private key)*  
-    * key-name.pub *(public key)*  
+    * **key-name** *(private key)*  
+    * **key-name.pub** *(public key)*  
 
 
 
