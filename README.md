@@ -13,5 +13,5 @@ Follow this tutorial if you are a CIT Term II student getting started with **Dig
 - Create a Droplet running Arch Linux using the DigitalOcean web console.
 - Use a cloud-init configuration file to automate initial setup tasks (e.g., user creation).
 - Connect to your server using your SSH keys.  
-![alt text](image.png)
+![This is a screenshot](image.png)
  
