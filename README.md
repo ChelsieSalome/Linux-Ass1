@@ -28,12 +28,16 @@ What you will need:
     * [Mac Command Lines](https://developer.apple.com/library/archive/documentation/OpenSource/Conceptual/ShellScripting/CommandLInePrimer/CommandLine.html)  
     * [Linux Command Lines](https://ubuntu.com/tutorials/command-line-for-beginners#2-a-brief-history-lesson)  
 
-# Step 1: Understanding SSH Key Pairs  
-## Private Key  
-## Public Key  
-## Private Key vs Public Key  
+# Section I - Creating SSH  Keys on your Local Machine  
+## Overview  
+..... This section will ....
 
-# Step 2: Installing OpenSSH  
+## Step 1: Understanding SSH Key Pairs  
+### Private Key  
+### Public Key  
+### Private Key vs Public Key  
+
+## Step 2: Installing OpenSSH  
 OpenSSH is ...
 * Check if SSH is installed  
 If you have the following versions of OS or newer, then your machine most-likely already have OpenSSH installed:  
@@ -41,8 +45,8 @@ If you have the following versions of OS or newer, then your machine most-likely
     * macOS 10.13  
     * Most Linux Distros  
 
-# Step 3: Generating an SSH Key Pair  
-* ## Windows Users  
+## Step 3: Generating an SSH Key Pair  
+* ### Windows Users  
 > **Note:** The commands below must be typed in the **Windows Terminal**, NOT in the **Windows Powershell**
 1. Create an .ssh directory (if not yet created) using the command:
 > `mkdir .ssh`  
@@ -62,7 +66,7 @@ If you have the following versions of OS or newer, then your machine most-likely
     * **Example**: Let's say your username is Chelsie, your email address is "chelsie@gmail.com"  and you choose to name your key "git-key", then the command to create your SSH key pair might look like this:
     > `ssh-keygen -t ed25519 -f C:\Users\tom\.ssh\git-key -C "chelsie@gmail.com"`  
 
-## macOS & Linux Users  
+### macOS & Linux Users  
 You don't have to manually create an .ssh directory as running the `ssh-keygen` command will automatically do that.  
 * Open your terminal and type:  
 > `ssh-keygen -t ed25519 -f ~/.ssh/key-name -C "youremail@email.com"`  
@@ -71,16 +75,55 @@ You don't have to manually create an .ssh directory as running the `ssh-keygen` 
 * `-f ~/.ssh/key-name`: This tells ssh-keygen where to save the generated private key. It will create the .ssh directory if it does not already exist and place key-name and key-name.pub (the private and public keys, respectively) inside it. (macOS & Linux use the tilde ~ to represent the user's home directory).  
 
 
-# Step 4: Choosing a Passphrase  
+## Step 4: Choosing a Passphrase  
 You can protect the private using a **passphrase**. A **passphrase** is ............  
 Because we are just using this for a small project, and to simplify your life ie to not have to remember about passphrases, I just to not set a passphrase and just hit **ENTER** twice.............  
 
-# Step 5: Verifying your SSH Keys  
-1. type `cd .ssh` > `ls` to view the files in the .ssh directory.  
+## Step 5: Verifying your SSH Keys  
+Type `cd .ssh` and next `ls` to view the files in the .ssh directory.  
 > The keys are successfully created if you see the following files in the .ssh directory:  
 * **key-name** *(private key)*  
 * **key-name.pub** *(public key)*  
 
+# Section II - Creating a Droplet running Arch Linux using the `doctl` Command-Line Tool  
+
+## Overview  
+*Explain that this section will guide users through creating a Droplet running Arch Linux using the doctl command-line tool.*
+*Briefly mention that doctl is DigitalOcean’s command-line interface for managing Droplets and other resources.*  
+
+## Step 1: Installing and Configuring `doctl`.  
+1. Installing `doctl`:  
+    * For Linux/macOS:  
+
+
+    * For Windows:  
+
+2. Configuring `doctl`:  
+Authenticate with DigitalOcean  
+
+## Step 2: Setting Up the Arch Linux Droplet  
+1. Listing Available Images:  
+
+
+2. Creating the Droplet:  
+**Command to Create a Droplet:**  
+
+
+**Explanation of the Command**  
+
+
+3. Verifying Droplet Creation:  
+* List Droplets:  
+
+
+*  Check Droplet Status:  
+
+
+## Step 3: Accessing the Arch Linux Droplet  
+**Connecting via SSH**:  
+
+## Step 4: Post-Setup Configuration  
+**Initial System Updates:**
 
 
 
