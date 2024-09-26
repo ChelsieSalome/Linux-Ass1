@@ -17,6 +17,7 @@ Follow this tutorial if you are a CIT Term II student getting started with **Dig
 # Introduction  
 ## What are SSH Keys?  
 1. What is SSH (Secure Shell) and why is it commonly used for communication between machines?  
+
 2. What are the benefits of SSH Keys  
 3. Why is SSH key-based authentication preferred to password-based authentication  
 
@@ -92,28 +93,113 @@ Type `cd .ssh` and next `ls` to view the files in the .ssh directory.
 *Briefly mention that doctl is DigitalOcean’s command-line interface for managing Droplets and other resources.*  
 
 ## Step 1: Installing and Configuring `doctl`.  
-1. Installing `doctl`:  
+### 1. Installing `doctl`:  
     * For Linux/macOS:  
 
 
     * For Windows:  
 
-2. Configuring `doctl`:  
+## 2. Creating an API Token 
 Authenticate with DigitalOcean  
 
-## Step 2: Setting Up the Arch Linux Droplet  
-1. Listing Available Images:  
+### 3. Using the API token to grant account access to doctl 
 
 
-2. Creating the Droplet:  
-**Command to Create a Droplet:**  
+### 4. Validating that doctl is working 
 
+
+### 5. Adding your ssh-key to DigitalOcean using `doctl`
+
+
+
+## Step 2:  Setting Up the Arch Linux Droplet  
+
+### Part 1: Creating a Cloud-config File using `doctl` & Cloud-init
+**What is Cloud-init?** 
+
+**What are thr benefits of a cloud-config file?** 
+
+**How to create a cloud-config file?** 
+
+1. Update your Arch Linux system by running `sudo pacman -Syu`.
+>**Breakdown of the command** 
+* . `sudo`: This allows you to run the command with elevated (superuser) privileges. System updates require administrative access to modify system files and packages.
+
+* . `pacman`: This is the package manager for Arch Linux and its derivatives. It handles the installation, updating, and removal of software packages.
+
+* . `Syu`:
+    * `-S` (Sync): This option tells pacman to synchronize the package databases. It fetches the latest package information from the repositories and updates your local database.
+    * `-y` (Refresh): This option forces a refresh of all package databases, ensuring that pacman has the most up-to-date package listings from the Arch repositories.
+    `-u` (Upgrade): This option upgrades all installed packages on your system to the latest versions available in the repositories.
+
+2. Install Neovim on your local machine with the command `sudo pacman -S neovim`
+>**Breakdown of the command** 
+* `-S`: This option stands for "sync" and is used to install a package from the official Arch repositories. It will download the required package along with its dependencies and install them.
+
+* `neovim`: This is the name of the package you're installing. In this case, it's the Neovim text editor
+
+**neovim** is sucessfully installed if when running  `nvim version`the output on the screen looks like this: ![alt text](image-1.png)
+
+3. Run `cd .ssh` to move to the **.ssh** directory.
+4. Run `nvim cloud-config.yaml` to create and open the file named **cloud-config.yaml** in **Normal mode**.
+5. Press the key **I** on your keyboard to switch to **Insert Mode**.
+6. . *copy* & *paste* the following configuration: 
+>#cloud-config
+>users:
+>	- name: Chelsie
+>    primary_group: users
+>    groups: wheel
+>    shell: /bin/bash
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    ssh-authorized-keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIg/IZG9QVEtwbjoO39uE3tmeFKER1cSRPVe4vodU9cY bcspies123@gmail.com
+
+packages:  ## use what is in the example.
+  - ripgrep
+  - rsync
+  - neovim
+  - fd
+  - less
+  - man-db
+  - bash-completion
+  - tmux
+  - git
+
+disable_root: true
+
+**Command Breakdown ...............**
+
+
+7. Make the following changes:
+    * name: <*name_of_user*> ..........
+    * primary_group = <*group_name*>........
+    * ssh-authorized-keys = <*content_of_the_public_key*> previously created...........
+    * Add/remove packages. ...........
+8. Press the **ESC** key on your keyaboard to exit the **Insert Mode** 
+9. Type **:wq** and press **ENTER** to save the changes and exit out of neovim.
+You can confirm the **cloud-config.yaml** file has been created by running `cat cloud-config.yaml`. This will display the content of the file as such: ![alt text](image-2.png)
+
+### Part 2: Creating the Droplet using `doctl`
+To create our droplet using `doctl`, we will need: an **image ID**, an **SSH key ID**, a **region** and a **size** ......*WHY ......?*. You can follow the steps below to gather those information:
+* run `doctl compute image list` and copy the **ID** of the Arch Linux image. in this case we will use **165084638**
+* Run `doctl compute size list` to view the different processors and RAM sizes you can create your droplet with.
+> eg: if you want your droplet to have **one processor** and **1GB of RAM** you can copy (take notes) **s-1vcpu-1gb**.
+* Run `doctl compute region list` to view a list of available regions and take notes of your favourite **region ID** or **slug**.
+> eg: **sfo3** for San Francisco .....*Why sfo3 ....?*
+* Run `doctl compute ssh-key list` to .......
+
+Now that we have those information, you can run: `doctl compute droplet create --image 165084638 --size s-1vcpu-1gb --region sfo3 --ssh-keys 43507363 --user-data-file ~/.ssh/cloud-init.yaml --wait wedDroplet` to create the droplet.
+> Depending on the packages, it might take up to *? time....*
+**Command Breakdown**
+*[Exlain what the command does here]........* 
 
 **Explanation of the Command**  
 
 
 3. Verifying Droplet Creation:  
-* List Droplets:  
+* Run `doctl compute droplet list` to ensure your droplet is listed as shown on the picture .....
+
+
 
 
 *  Check Droplet Status:  
@@ -122,6 +208,11 @@ Authenticate with DigitalOcean
 ## Step 3: Accessing the Arch Linux Droplet  
 **Connecting via SSH**:  
 
+## Section: Establishing the connection through SSH
+### Create a config file
+
+* Run `ssh <droplet name>` to login to the newly create droplet
+
 ## Step 4: Post-Setup Configuration  
 **Initial System Updates:**
 
@@ -129,4 +220,6 @@ Authenticate with DigitalOcean
 
 
 
- 
+
+[Environment]::SetEnvironmentVariable("Path", [Environment]::GetEnvironmentVariable("Path", [EnvironmentVariableTarget]::Machine) + ";$env:ProgramFiles\doctl\", [EnvironmentVariableTarget]::Machine)
+$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine")
