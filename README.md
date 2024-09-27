@@ -120,7 +120,7 @@ An **API Token** serves as a means of **authentication** and **authorization** w
 Follow the steps below to generate an **API Token**:
 1. log into your DigitalOcean Account (if not logged in yet)
 2. Scroll down the **Side bar** and click **API**. (As shown on the picture)
- <img src="image-4.png" alt="Example Image" width="300" height = "100"/>![alt text](image-4.png)
+ <img src="image-4.png" alt="Example Image" width="300" height = "400"/>
 
 3. On the **Tokens** tab, click **Generate New Token**.  
 4. Type the *<Token Name>* and select **Full Access** to grant the token full permissions > Click **Generate Token**.You can leave the default **Expiration** choice.(As shown on the picture)
