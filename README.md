@@ -106,10 +106,11 @@ Type `cd .ssh` and next `ls` to view the files in the .ssh directory.
     `-u` (Upgrade): This option upgrades all installed packages on your system to the latest versions available in the repositories.
 2. Run `sudo pacman -S doctl` to install **doctl** on your local machine.
 >**Breakdown of the Command**
-* `sudo`, `pacman` & `-S` have the same functions here as what was explained aboive.
+* `sudo`, `pacman` & `-S` have the same functions here as what was explained above.
 * `doctl`: is the name of the package we want to install.
 
-To check it **doctl** was successfully installed, you can run `doctl version` and ensure you get a similar output to the one on the picture: ![alt text](image-3.png)
+To check it **doctl** was successfully installed, you can run `doctl version` and ensure you get a similar output to the one on the picture:
+ ![alt text](image-3.png)
 
 ## b. Creating an API Token 
 An **API Token** serves as a means of **authentication** and **authorization** when creatind a droplet using DigitalOcean's CLI tool **doctl**. Here are some of the functions of the **API Token**:
@@ -119,11 +120,11 @@ An **API Token** serves as a means of **authentication** and **authorization** w
 Follow the steps below to generate an **API Token**:
 1. log into your DigitalOcean Account (if not logged in yet)
 2. Scroll down the **Side bar** and click **API**. (As shown on the picture)
- ![alt text](image-4.png)
+ <img src="image-4.png" alt="Example Image" width="300" height = "100"/>![alt text](image-4.png)
 
 3. On the **Tokens** tab, click **Generate New Token**.  
 4. Type the *<Token Name>* and select **Full Access** to grant the token full permissions > Click **Generate Token**.You can leave the default **Expiration** choice.(As shown on the picture)
-<img src="image-7.png" alt="Example Image" width="300" height = "300"/>
+<img src="image-7.png" alt="Example Image" width="300" height = "100"/>
 ![alt text](image-7.png)
 
 5. Click **Copy** to copy the personal token and save it somewhere for the next step as it will be only be generated once.
