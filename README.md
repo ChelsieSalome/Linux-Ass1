@@ -47,38 +47,30 @@ If you have the following versions of OS or newer, then your machine most-likely
     * Most Linux Distros  
 
 ## Step 3: Generating an SSH Key Pair  
-* ### Windows Users  
-> **Note:** The commands below must be typed in the **Windows Terminal**, NOT in the **Windows Powershell**
+
+> **Note:** Since your local machine is a droplet running Arch Linux, the commands we will be running are for Linux-types OS. You can refer to the links provide above if using a differenc OS.
+
 1. Create an .ssh directory (if not yet created) using the command:
 > `mkdir .ssh`  
 2. Create the ssh key pair using the command:
->`ssh-keygen -t ed25519 -f C:\Users\your-user-name\.ssh\key-name -C "youremail@email.com"`  
+>`ssh-keygen -t ed25519 -f ~/.ssh/key-name -C "youremail@email.com"`  
 
 **Explanation of the command:**  
 * `ssh-keygen`: Command-line utility used to generate, manage and convert SSH keys.  
 * `-t`: specifies the **type of key** to generate.  
 * `ed25519`: is a type of public-key algorithm. Other options of public key types include: rsa, dsa & ecdsa. Ed25519 is preferred for new keys due to its superior performance, smaller key sizes, better security, and resistance to certain attacks. (VulnerX, 2024) You can refer to [RSA vs ECDSA vs Ed25519](https://vulnerx.com/ssh-key-algorithms/) for further reading about each public key advantages.  
 * `f`: option specifies the file name and path where the key pair (both the private and public key) will be saved.  
-* `C:\Users\your-user-name\.ssh\key-name`: is the full path on a Windows system where the key files will be stored, please replace `your-user-name` with the actual **user name** as displayed on the terminal, and `key-name` with the **key name** that you would have chosen for your key:
+* `~/.ssh/key-name`: is the full path to the .ssh directory from the current user' home. Please replace `key-name` with the **key name** that you would have chosen for your key:
         * The private key will be saved as `key-name`.  
         * The public key will be saved as `key-name.pub`.  
 * `C`: option adds a comment to the key.  
-    * `"youremail@email.com"`: is the comment added to the key. This comment is embedded in the public key file and is visible when the key is used. It's helpful for recognizing which key belongs to whom, especially when managing multiple keys on servers or services like GitHub.  
-    * **Example**: Let's say your username is Chelsie, your email address is "chelsie@gmail.com"  and you choose to name your key "git-key", then the command to create your SSH key pair might look like this:
-    > `ssh-keygen -t ed25519 -f C:\Users\Chelsie\.ssh\git-key -C "chelsie@gmail.com"`  
-
-### macOS & Linux Users  
-You don't have to manually create an .ssh directory as running the `ssh-keygen` command will automatically do that.  
-* Open your terminal and type:  
-> `ssh-keygen -t ed25519 -f ~/.ssh/key-name -C "youremail@email.com"`  
-**Explanation of the Command:** 
-* The command is similar to the Windows-command, the only difference is the path.  
-* `-f ~/.ssh/key-name`: This tells ssh-keygen where to save the generated private key. It will create the .ssh directory if it does not already exist and place key-name and key-name.pub (the private and public keys, respectively) inside it. (macOS & Linux use the tilde ~ to represent the user's home directory).  
-
+    * `"youremail@email.com"`: is the comment added to the key. This comment is embedded in the public key file and is visible when the key is used.  
+    * **Example**: Let's say your username is Chelsie, your email address is "chelsie@gmail.com"  and you choose to name your key **"wedKEY"**, then the command to create your SSH key pair might look like this:
+    > `ssh-keygen -t ed25519 -f ~/.ssh/wedKEY -C "chelsie@gmail.com"`  
 
 ## Step 4: Choosing a Passphrase  
-You can protect the private using a **passphrase**. A **passphrase** is ............  
-Because we are just using this for a small project, and to simplify your life ie to not have to remember about passphrases, I just to not set a passphrase and just hit **ENTER** twice.............  
+You can protect the private using a **passphrase**. A **passphrase** is just a string of characters used to add an additional layer of security to your private key through encryption.
+To make your life easier and avoid the hassle of remembering a passphrase, you can choose not to set one. To do this, simply hit ENTER twice when prompted for a passphrase. This will create your SSH key without any passphrase protection, allowing you to use it seamlessly for your project. 
 
 ## Step 5: Verifying your SSH Keys  
 Type `cd .ssh` and next `ls` to view the files in the .ssh directory.  
@@ -143,12 +135,23 @@ Follow the steps below to generate an **API Token**:
 2. Enter the **API Token** previously generated as prompted and press **ENTER**.
 
 ### d. Validating that doctl is working properly.
+
 Run `doctl account get`. You should get an output similar to the one on the picture below, indicating that `doctl` now has full access to your DigitalOcean account.
 ![alt text](image-10.png)
 
 
 ### e. Adding your ssh-key to DigitalOcean using `doctl`
-Run 
+Run `doctl compute ssh-key import wedKEYY --public-key-file ~/.ssh/wedKEY.pub` to import the key DigitalOcean.
+>**Command breakdown**
+* `compute`: subcommand to indicate that the operation relates to compute resources, such as Droplets (virtual machines).
+
+* `ssh-key`:to specify that we are working with SSH keys.
+
+* `import`:to import a new SSH public key into your DigitalOcean account.
+
+ * `wedKEY`:the name of the key we created in *Section 1, step #3*.
+
+* `--public-key-file ~/.ssh/wedKEY.pub`: to specify the file path of the SSH public key we want to import. In this case, it points to the public key file named wedKEY.pub located in the .ssh directory of the user's home folder.
 
 
 
@@ -174,37 +177,59 @@ Run
 3. Run `cd .ssh` to move to the **.ssh** directory.
 4. Run `nvim cloud-config.yaml` to create and open the file named **cloud-config.yaml** in **Normal mode**.
 5. Press the key **I** on your keyboard to switch to **Insert Mode**.
-6. . *copy* & *paste* the following configuration: 
+6.  *copy* & *paste* the following configuration: 
 >#cloud-config
 >users:
 >	- name: Chelsie
 >    primary_group: users
 >    groups: wheel
 >    shell: /bin/bash
-    sudo: ['ALL=(ALL) NOPASSWD:ALL']
-    ssh-authorized-keys:
-      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIg/IZG9QVEtwbjoO39uE3tmeFKER1cSRPVe4vodU9cY bcspies123@gmail.com
+>    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+>    ssh-authorized-keys:
+>      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIg/IZG9QVEtwbjoO39uE3tmeFKER1cSRPVe4vodU9cY bcspies123@gmail.com
 
-packages:  ## use what is in the example.
-  - ripgrep
-  - rsync
-  - neovim
-  - fd
-  - less
-  - man-db
-  - bash-completion
-  - tmux
-  - git
+>packages:  ## use what is in the example.
+>  - ripgrep
+>  - rsync
+>  - neovim
+>  - fd
+>  - less
+>  - man-db
+>  - bash-completion
+>  - tmux
+>  - git
 
 disable_root: true
 
 **Command Breakdown ...............**
+users:: This section defines user accounts to be created on the instance.
 
+- name: Chelsie:
+
+Specifies the username for the new user account.
+primary_group: users:
+
+Assigns the user to the users group as the primary group.
+groups: wheel:
+
+Adds the user to the wheel group, which typically allows for administrative privileges (sudo access).
+shell: /bin/bash:
+
+Sets the default shell for the user to Bash, which is a common command-line shell in Linux.
+sudo: ['ALL=(ALL) NOPASSWD:ALL']:
+
+Configures the user to have sudo privileges without needing to enter a password for any command. This is useful for automation but should be used with caution due to security implications.
+ssh-authorized-keys::
+
+This section lists SSH public keys that will be authorized for the user.
+- ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIg/IZG9QVEtwbjoO39uE3tmeFKER1cSRPVe4vodU9cY bcspies123@gmail.com:
+
+This line adds a specific SSH public key to the user's account,
 
 7. Make the following changes:
     * name: <*name_of_user*> ..........
     * primary_group = <*group_name*>........
-    * ssh-authorized-keys = <*content_of_the_public_key*> previously created...........
+    * ssh-authorized-keys = <*content_of_the_public_key*>. In this case, you can run `cat wedKEY.pub`, copy the content of the public key we previously created and paste it there.
     * Add/remove packages. ...........
 8. Press the **ESC** key on your keyaboard to exit the **Insert Mode** 
 9. Type **:wq** and press **ENTER** to save the changes and exit out of neovim.
