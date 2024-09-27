@@ -125,7 +125,7 @@ Follow the steps below to generate an **API Token**:
 3. On the **Tokens** tab, click **Generate New Token**.  
 4. Type the *<Token Name>* and select **Full Access** to grant the token full permissions > Click **Generate Token**.You can leave the default **Expiration** choice.(As shown on the picture)
 
-<img src="image-7.png" alt="Example Image" width="400" height = "250"/>
+![alt text](image-7.png)
 
 5. Click **Copy** to copy the personal token and save it somewhere for the next step as it will be only be generated once.
 ![alt text](image-8.png)
