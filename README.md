@@ -56,13 +56,18 @@ If you have the following versions of OS or newer, then your machine most-likely
 >`ssh-keygen -t ed25519 -f ~/.ssh/key-name -C "youremail@email.com"`  
 
 **Explanation of the command:**  
-* `ssh-keygen`: Command-line utility used to generate, manage and convert SSH keys.  
+* `ssh-keygen`: Command-line utility used to generate, manage and convert SSH keys. 
+
 * `-t`: specifies the **type of key** to generate.  
+
 * `ed25519`: is a type of public-key algorithm. Other options of public key types include: rsa, dsa & ecdsa. Ed25519 is preferred for new keys due to its superior performance, smaller key sizes, better security, and resistance to certain attacks. (VulnerX, 2024) You can refer to [RSA vs ECDSA vs Ed25519](https://vulnerx.com/ssh-key-algorithms/) for further reading about each public key advantages.  
-* `f`: option specifies the file name and path where the key pair (both the private and public key) will be saved.  
+
+* `f`: option specifies the file name and path where the key pair (both the private and public key) will be saved. 
+
 * `~/.ssh/key-name`: is the full path to the .ssh directory from the current user' home. Please replace `key-name` with the **key name** that you would have chosen for your key:
         * The private key will be saved as `key-name`.  
         * The public key will be saved as `key-name.pub`.  
+
 * `C`: option adds a comment to the key.  
     * `"youremail@email.com"`: is the comment added to the key. This comment is embedded in the public key file and is visible when the key is used.  
     * **Example**: Let's say your username is Chelsie, your email address is "chelsie@gmail.com"  and you choose to name your key **"wedKEY"**, then the command to create your SSH key pair might look like this:
@@ -188,7 +193,7 @@ Run `doctl compute ssh-key import wedKEYY --public-key-file ~/.ssh/wedKEY.pub` t
 >    ssh-authorized-keys:
 >      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIg/IZG9QVEtwbjoO39uE3tmeFKER1cSRPVe4vodU9cY bcspies123@gmail.com
 
->packages:  ## use what is in the example.
+>packages:
 >  - ripgrep
 >  - rsync
 >  - neovim
@@ -204,73 +209,118 @@ disable_root: true
 **Command Breakdown ...............**
 users:: This section defines user accounts to be created on the instance.
 
-- name: Chelsie:
+- **name: Chelsie** : to pecify the username for the new user account. 
 
-Specifies the username for the new user account.
-primary_group: users:
+- **primary_group: users**: to assign the user to the users group as the primary group.
 
-Assigns the user to the users group as the primary group.
-groups: wheel:
+- **groups: wheel**: to add the user to the wheel group, which typically allows for administrative privileges (sudo access).
 
-Adds the user to the wheel group, which typically allows for administrative privileges (sudo access).
-shell: /bin/bash:
+- **shell: /bin/bash**: to sets the default shell for the user to Bash, which is a common command-line shell in Linux.
 
-Sets the default shell for the user to Bash, which is a common command-line shell in Linux.
-sudo: ['ALL=(ALL) NOPASSWD:ALL']:
+- **sudo: ['ALL=(ALL) NOPASSWD:ALL']**: to configures the user to have sudo privileges without needing to enter a password for any command. 
 
-Configures the user to have sudo privileges without needing to enter a password for any command. This is useful for automation but should be used with caution due to security implications.
-ssh-authorized-keys::
+- **ssh-authorized-keys:**: to lists SSH public keys that will be authorized for the user.
+- **ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIg/IZG9QVEtwbjoO39uE3tmeFKER1cSRPVe4vodU9cY bcspies123@gmail.com:** to add a specific SSH public key to the user's account. This is the content of the public key we previously created and paste it there, obtained by running `cat wedKEY.pub`. 
 
-This section lists SSH public keys that will be authorized for the user.
-- ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIg/IZG9QVEtwbjoO39uE3tmeFKER1cSRPVe4vodU9cY bcspies123@gmail.com:
+8. Press the **ESC** key on your keyboard to exit the **Insert Mode** 
 
-This line adds a specific SSH public key to the user's account,
-
-7. Make the following changes:
-    * name: <*name_of_user*> ..........
-    * primary_group = <*group_name*>........
-    * ssh-authorized-keys = <*content_of_the_public_key*>. In this case, you can run `cat wedKEY.pub`, copy the content of the public key we previously created and paste it there.
-    * Add/remove packages. ...........
-8. Press the **ESC** key on your keyaboard to exit the **Insert Mode** 
 9. Type **:wq** and press **ENTER** to save the changes and exit out of neovim.
-You can confirm the **cloud-config.yaml** file has been created by running `cat cloud-config.yaml`. This will display the content of the file as such: ![alt text](image-2.png)
+
+You can confirm the **cloud-config.yaml** file has been created by running `cat cloud-config.yaml`.
 
 ### Part 2: Creating the Droplet using `doctl`
 To create our droplet using `doctl`, we will need: an **image ID**, an **SSH key ID**, a **region** and a **size** ......*WHY ......?*. You can follow the steps below to gather those information:
 * run `doctl compute image list` and copy the **ID** of the Arch Linux image. in this case we will use **165084638**
+
 * Run `doctl compute size list` to view the different processors and RAM sizes you can create your droplet with.
 > eg: if you want your droplet to have **one processor** and **1GB of RAM** you can copy (take notes) **s-1vcpu-1gb**.
+
 * Run `doctl compute region list` to view a list of available regions and take notes of your favourite **region ID** or **slug**.
+
 > eg: **sfo3** for San Francisco .....*Why sfo3 ....?*
 * Run `doctl compute ssh-key list` to .......
 
 Now that we have those information, you can run: `doctl compute droplet create --image 165084638 --size s-1vcpu-1gb --region sfo3 --ssh-keys 43507363 --user-data-file ~/.ssh/cloud-init.yaml --wait wedDroplet` to create the droplet.
 > Depending on the packages, it might take up to *? time....*
 **Command Breakdown**
-*[Exlain what the command does here]........* 
+* `droplet create`: to creates a new Droplet (virtual machine).
 
-**Explanation of the Command**  
+* `--image 165084638`: to pecifiey the image to use for the Droplet. The number 165084638 represents the unique ID of the custom Arch Linux Image we previously added.
 
+* `--size s-1vcpu-1gb`: to defines the size of the Droplet. The **size s-1vcpu-1gb** means:
+    * **1 vCPU**: The virtual CPU count.
+    * **1 GB RAM:** The amount of memory (RAM) for the Droplet.
+This size is suitable for small applications or testing environments.
+
+* `--region sfo3`: to Specify the region where the Droplet will be created. sfo3 refers to the San Francisco 3 data center. We are choosing this one because it is one of the closest to Vancouver.
+
+* `--user-data-file ~/.ssh/cloud-init.yaml`: to indicate the location of the configuration file (**cloud-init.yaml**) that runs when the Droplet is first initialized. 
+
+* `--wait:` we use this flag to tell doctl to wait until the Droplet creation process is complete before returning control to the terminal, so that we know when the droplet is ready.
+* `wedDroplet`: The name of the Droplet being created.
 
 3. Verifying Droplet Creation:  
-* Run `doctl compute droplet list` to ensure your droplet is listed as shown on the picture .....
+* Run `doctl compute droplet list` to ensure your droplet is listed as shown on the picture.
+![alt text](image-11.png)
 
-
-
-
-*  Check Droplet Status:  
 
 
 ## Step 3: Accessing the Arch Linux Droplet  
-**Connecting via SSH**:  
+**Connecting via SSH**: 
 
 ## Section: Establishing the connection through SSH
-### Create a config file
+### Creating an SSH Config File
+
+Each time you connect to your Droplet, you usually need to specify:
+* The IP address or domain of the Droplet.
+* The username you’ll use for the connection.
+* The path to the private key for authentication.
+* The port number (if different from the default).
+
+A configuration file (like the SSH config file) is used to simplify and streamline the process of connecting to a Droplet (or any remote server) by predefining connection settings. So, instead of typing the full command with all connection details every time, a config file allows you to use a short, simple alias.
+Follow the steps below to create a **config file**.
+
+1. Run `cd ~/ssh` to move to the **.ssh** directory from the current user home directory.
+2. Run `nvim config` to create and open the file named **config** in **Normal mode**.
+5. Press the key **I** on your keyboard to switch to **Insert Mode**.
+6.  *copy* & *paste* the following configuration: 
+
+>Host wedDroplet
+>  HostName 128.199.7.130
+>  User Chelsie
+>  PreferredAuthentications publickey
+>  IdentityFile ~/.ssh/wedKEY
+>  StrictHostKeyChecking no
+>  UserKnownHostsFile /dev/null
+
+>**Command Breakdown**
+
+* **Host**: This defines a shortcut or alias for the connection. We are choosing "wedDroplet" to refer the droplet we previously created. 
+
+* **HostName 128.199.7.130**: This is the Public IPv4 address of the **wedDroplet** we are connecting to, which in this case is 128.199.7.130. (obtained after running `doctl compute droplet list`).
+
+* **User Chelsie**: to define the username we will use to connect to the Droplet. In this case, it is Chelsie.
+>**NOTE**: It must match the username in the **cloud-config.yaml** file.
+
+* **PreferredAuthentications publickey**: to tell SSH to use public key authentication as the preferred method for connecting.
+
+* **IdentityFile ~/.ssh/wedKEY**: to specifie the path to the private key that will be used for authentication. Here, it points to **~/.ssh/wedKEY**, which is the private SSH key we create in **Section 1, step 3** ......
+
+* **StrictHostKeyChecking no**: to disable the verification of the Droplet’s SSH host key.
+Normally, SSH checks the host key the first time you connect to a server to ensure you are connecting to the right machine. Setting this to no allows you to bypass the host key verification, which can be useful for automated connections
+
+* **UserKnownHostsFile /dev/null**: to define the file where SSH will save information about the host keys of servers we've connected to.
+Setting it to /dev/null because we don’t want to store persistent records of host keys.
 
 * Run `ssh <droplet name>` to login to the newly create droplet
 
-## Step 4: Post-Setup Configuration  
-**Initial System Updates:**
+7. Run `exit` to allow the system to save your changes and restart.
+
+8. Run `ssh wedDroplet`. You should be able to see the output as shown on the picture below, indicating a successful connection to your newly created droplet running Arch Linux.
+![alt text](image-12.png)
+
+## General Troubleshooting Guide
+....................................
 
 
 
