@@ -27,7 +27,9 @@ What you will need:
 * Basic familiarity with the command line. Here are some basic command lines for different OS:
     * [Windows Command Lines](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/windows-commands#c)  
     * [Mac Command Lines](https://developer.apple.com/library/archive/documentation/OpenSource/Conceptual/ShellScripting/CommandLInePrimer/CommandLine.html)  
-    * [Linux Command Lines](https://ubuntu.com/tutorials/command-line-for-beginners#2-a-brief-history-lesson)  
+    * [Linux Command Lines](https://ubuntu.com/tutorials/command-line-for-beginners#2-a-brief-history-lesson) 
+
+* AN ARCH Linux image ........ 
 
 # Section I - Creating SSH  Keys on your Local Machine  
 ## Overview  
@@ -207,7 +209,8 @@ Run `doctl compute ssh-key import wedKEYY --public-key-file ~/.ssh/wedKEY.pub` t
 disable_root: true
 
 **Command Breakdown ...............**
-users:: This section defines user accounts to be created on the instance.
+
+- **users:**: This section defines user accounts to be created on the instance.
 
 - **name: Chelsie** : to pecify the username for the new user account. 
 
