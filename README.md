@@ -93,22 +93,57 @@ Type `cd .ssh` and next `ls` to view the files in the .ssh directory.
 *Briefly mention that doctl is DigitalOcean’s command-line interface for managing Droplets and other resources.*  
 
 ## Step 1: Installing and Configuring `doctl`.  
-### 1. Installing `doctl`:  
-    * For Linux/macOS:  
+### a. Installing `doctl`:  
+1. Update your Arch Linux system by running `sudo pacman -Syu`.
+>**Breakdown of the Command** 
+*  `sudo`: This allows you to run the command with elevated (superuser) privileges since we are performing System updates.
+
+* `pacman`: This is the package manager for Arch Linux and its derivatives. It handles the installation, updating, and removal of software packages.
+
+*  `Syu`:
+    * `-S` (Sync): This option tells pacman to download the package(or upgrade it if it's already installed) and install any required software for the package to function properly.
+    * `-y` (Refresh): This option forces pacman to download the most up-to-date package from the Arch repositories.
+    `-u` (Upgrade): This option upgrades all installed packages on your system to the latest versions available in the repositories.
+2. Run `sudo pacman -S doctl` to install **doctl** on your local machine.
+>**Breakdown of the Command**
+* `sudo`, `pacman` & `-S` have the same functions here as what was explained aboive.
+* `doctl`: is the name of the package we want to install.
+
+To check it **doctl** was successfully installed, you can run `doctl version` and ensure you get a similar output to the one on the picture: ![alt text](image-3.png)
+
+## b. Creating an API Token 
+An **API Token** serves as a means of **authentication** and **authorization** when creatind a droplet using DigitalOcean's CLI tool **doctl**. Here are some of the functions of the **API Token**:
+* **Authentication**: by acting like a password to verify your identity.
+* **Authorization**: by granting permission to execute commands on your DigitalOcean account (droplet creation & management etc.)
+* **Secure Access**: By allowing you to safely access your DigitalOcean account without needing to input your username and password every time.
+Follow the steps below to generate an **API Token**:
+1. log into your DigitalOcean Account (if not logged in yet)
+2. Scroll down the **Side bar** and click **API**. (As shown on the picture) ![alt text](image-4.png)
+3. On the **Tokens** tab, click **Generate New Token**.  
+4. Type the *<Token Name>* and select **Full Access** to grant the token full permissions > Click **Generate Token**.You can leave the default **Expiration** choice.(As shown on the picture)
+![alt text](image-7.png)
+5. Click **Copy** to copy the personal token and save it somewhere for the next step as it will be only be generated once.
+![alt text](image-8.png)
+
+### c. Using the API token to grant account access to doctl 
+1. Run `doctl auth init --context Token1` to initialize the authentication for `doctl`.
+> **Breakdown of the command**
+* `doctl`: DigitalOcean's CLI(command line tool)
+* `auth`: subcommand for authentication
+* `init`: keyword to initialize the authentication process
+* `--context`: to specify a name for this authentication context.
+* `Token1`:is the name of the context we are setting up, you can name it however you want, although it is advised to choose a descriptive name. By specifying a context name, we can easily switch between different sets of credentials or configurations later on. The next picture shows what your screen should look like.
+![alt text](image-9.png)
+> 
+2. Enter the **API Token** previously generated as prompted and press **ENTER**.
+
+### d. Validating that doctl is working properly.
+Run `doctl account get`. You should get an output similar to the one on the picture below, indicating that `doctl` now has full access to your DigitalOcean account.
+![alt text](image-10.png)
 
 
-    * For Windows:  
-
-## 2. Creating an API Token 
-Authenticate with DigitalOcean  
-
-### 3. Using the API token to grant account access to doctl 
-
-
-### 4. Validating that doctl is working 
-
-
-### 5. Adding your ssh-key to DigitalOcean using `doctl`
+### e. Adding your ssh-key to DigitalOcean using `doctl`
+Run 
 
 
 
@@ -121,16 +156,7 @@ Authenticate with DigitalOcean
 
 **How to create a cloud-config file?** 
 
-1. Update your Arch Linux system by running `sudo pacman -Syu`.
->**Breakdown of the command** 
-* . `sudo`: This allows you to run the command with elevated (superuser) privileges. System updates require administrative access to modify system files and packages.
 
-* . `pacman`: This is the package manager for Arch Linux and its derivatives. It handles the installation, updating, and removal of software packages.
-
-* . `Syu`:
-    * `-S` (Sync): This option tells pacman to synchronize the package databases. It fetches the latest package information from the repositories and updates your local database.
-    * `-y` (Refresh): This option forces a refresh of all package databases, ensuring that pacman has the most up-to-date package listings from the Arch repositories.
-    `-u` (Upgrade): This option upgrades all installed packages on your system to the latest versions available in the repositories.
 
 2. Install Neovim on your local machine with the command `sudo pacman -S neovim`
 >**Breakdown of the command** 
