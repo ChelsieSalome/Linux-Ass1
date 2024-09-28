@@ -265,7 +265,7 @@ disable_root: true
 - **sudo: ['ALL=(ALL) NOPASSWD:ALL']**: to configures the user to have sudo privileges without needing to enter a password for any command. 
 
 - **ssh-authorized-keys:**: to lists SSH public keys that will be authorized for the user.
-- **ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIg/IZG9QVEtwbjoO39uE3tmeFKER1cSRPVe4vodU9cY bcspies123@gmail.com:** to add a specific SSH public key to the user's account. This is the content of the public key we previously created and paste it there, obtained by running `cat wedKEY.pub`. 
+- **ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIg/IZG9QVEtwbjoO39uE3tmeFKER1cSRPVe4vodU9cY lelechelsie@gmail.com:** to add a specific SSH public key to the user's account. This is the content of the public key we previously created and paste it there, obtained by running `cat wedKEY.pub`. 
 
 6. Press the **ESC** key on your keyboard to exit the **Insert Mode** 
 
@@ -337,13 +337,13 @@ Follow the steps below to create a **config file**.
 5. Press the key **I** on your keyboard to switch to **Insert Mode**.
 6.  *copy* & *paste* the following configuration: 
 
->Host wedDroplet
->  HostName 128.199.7.130
->  User Chelsie
->  PreferredAuthentications publickey
->  IdentityFile ~/.ssh/wedKEY
->  StrictHostKeyChecking no
->  UserKnownHostsFile /dev/null
+>Host wedDroplet  
+>  HostName 128.199.7.130  
+>  User Chelsie  
+>  PreferredAuthentications publickey  
+>  IdentityFile ~/.ssh/wedKEY  
+>  StrictHostKeyChecking no  
+>  UserKnownHostsFile /dev/null  
 
 >**Command Breakdown**
 
