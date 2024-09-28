@@ -338,12 +338,12 @@ Follow the steps below to create a **config file**.
 6.  *copy* & *paste* the following configuration: 
 
 >Host wedDroplet  
->  HostName 128.199.7.130  
->  User Chelsie  
->  PreferredAuthentications publickey  
->  IdentityFile ~/.ssh/wedKEY  
->  StrictHostKeyChecking no  
->  UserKnownHostsFile /dev/null  
+    >  HostName 128.199.7.130  
+    >  User Chelsie  
+    >  PreferredAuthentications publickey  
+    >  IdentityFile ~/.ssh/wedKEY  
+    >  StrictHostKeyChecking no  
+    >  UserKnownHostsFile /dev/null  
 
 >**Command Breakdown**
 
@@ -366,7 +366,7 @@ Normally, SSH checks the host key the first time you connect to a server to ensu
 Setting it to /dev/null because we don’t want to store persistent records of host keys.
 
 ## Step 2: Accessing the New droplet
-1. * Run `ssh <droplet name>` to login to the newly create droplet
+1. Run `ssh <droplet name>` to login to the newly create droplet
 
 2. Run `exit` to allow the system to save your changes and reset.
 
@@ -375,6 +375,6 @@ Setting it to /dev/null because we don’t want to store persistent records of h
 
 # V- Glossary
 
-## General Troubleshooting Guide
+# Troubleshooting Guide
 ....................................
 
