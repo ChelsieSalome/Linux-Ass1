@@ -1,6 +1,6 @@
 
 # ACIT 2420 ASSIGNMENT I  
-## Chelsie Salome Lele Wambo  - A01372274  
+## Salome Chelsie Lele Wambo  - A01372274  
 ## Instructor: Nathan McNinch
 
 
@@ -112,6 +112,7 @@ Type `cd .ssh` and next `ls` to view the files in the .ssh directory.
 > The keys are successfully created if you see the following files in the .ssh directory:  
 * **key-name** *(private key)*  
 * **key-name.pub** *(public key)*  
+![alt text](image-14.png)
 
 # III- Section 2 - Creating a Droplet running Arch Linux using the `doctl` Command-Line Tool  
 
