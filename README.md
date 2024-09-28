@@ -16,8 +16,8 @@
 ## II- Section 1: Creating SSH  Keys on your Local Machine
 ## III- Section 2 - Creating a Droplet running Arch Linux using the `doctl` Command-Line Tool
 ## IV- Section 3: Accessing the Arch Linux Droplet via SSH 
-## V- Glossary
-## VI- Troubleshooting Guide
+## V- Troubleshooting Guide
+## VI- Glossary 
 ## Rerences
 
 # Introduction
