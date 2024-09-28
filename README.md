@@ -373,8 +373,72 @@ Setting it to /dev/null because we don’t want to store persistent records of h
 3. Run `ssh wedDroplet`. You should be able to see the output as shown on the picture below, indicating a successful connection to your newly created droplet running Arch Linux.
 ![alt text](image-12.png)
 
-# V- Glossary
+# V- Troubleshooting Guide 
+## 1. Creating SSH Keys on Your Local Machine  
 
-# Troubleshooting Guide
-....................................
+* **Issue: SSH key generation fails**  
+**Solution**: Ensure you have the correct permissions for the directory where you are trying to create the SSH keys. If you are using a terminal, check that you are in your home directory or a directory where you have write permissions.  
+
+*  **Issue: The SSH key is not recognized by the server**  
+**Solution**: Verify that the public key was copied correctly to the server's ~/.ssh/authorized_keys file. Ensure there are no extra spaces or line breaks.  
+
+* **Issue: Permission denied when using the SSH key** 
+**Solution**: Check the permissions of the ~/.ssh directory and the authorized_keys file on the server. The ~/.ssh directory should have permissions set to 700, and the authorized_keys file should be set to 600.  
+
+## 2. Creating a Droplet Running Arch Linux Using the DigitalOcean Web Console 
+
+* **Issue: Unable to create a Droplet**  
+**Solution**: Confirm that you have sufficient funds in your DigitalOcean account and that you have selected valid options for size, region, and image.  
+
+* **Issue: Droplet fails to boot** 
+**Solution**: Check the console output through the DigitalOcean dashboard for any error messages. Ensure that your configuration settings are correct and match the requirements for Arch Linux.  
+## 3. Creating a Droplet Running Arch Linux Using the doctl Command-Line Tool  
+
+* **Issue: doctl command not recognized** 
+**Solution**: Ensure that doctl is installed correctly and that its binary is in your system's PATH. You can check this by running doctl version.  
+
+* **Issue: Authentication error** 
+**Solution**: Verify that your API token is set correctly in your environment variables or in your ~/.config/doctl/config.yaml file. Ensure the token has the necessary permissions.  
+
+## 4. Using doctl and Cloud-Init for Every Stage of Setting Up an Arch Linux Droplet  
+
+**Issue: Cloud-Init script not executing**
+**Solution**: Check the syntax of your Cloud-Init script for any errors. Ensure that the script is included correctly in the Droplet creation command and that the script is properly formatted.  
+
+* **Issue: Software packages fail to install**
+**Solution**: Verify that the package names in your Cloud-Init script are correct and available in the Arch Linux repositories. Also, ensure your script is set to run with the appropriate permissions.  
+
+## 5. Managing and Securing Remote Servers in the Cloud  
+
+* **Issue: Unable to connect to the server via SSH**  
+**Solution**: Double-check your server's IP address, port, and SSH configuration. Ensure the server is running and reachable over the network.  
+
+
+# VI- Glossary  
+**API Token**
+A unique string of characters used for authentication and authorization when interacting with an API, allowing access to services without the need to repeatedly input usernames and passwords.
+
+**Cloud-Init**
+An open-source tool designed for automating the initialization and configuration of cloud instances during the boot process. It allows users to customize settings and install software without manual intervention.
+
+**CLI (Command-Line Interface)**
+A text-based interface that allows users to interact with the computer system by typing commands into a terminal. 
+
+**Packages**
+Collections of files and metadata that are bundled together for installation and management. 
+
+**SSH (Secure Shell)**
+A cryptographic network protocol that enables secure communication between two machines over an unsecured network.   
+
+**SSH Key**
+A pair of keys used for SSH authentication: a public key that can be shared and a private key that must be kept secure. 
+
+**SSH Key-based Authentication**
+A method of authentication that uses a pair of cryptographic keys (public and private keys) instead of passwords. This offers stronger security and resistance to brute-force attacks, phishing, and theft.
+
+**Sudo Privileges**
+Permissions granted to a user to execute commands with administrator privileges. T
+
+
+# References
 
