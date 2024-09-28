@@ -1,9 +1,8 @@
-# Linux-Ass1
-First Assignment ACIT 2420
 
 # ACIT 2420 ASSIGNMENT I  
-# Chelsie Salome Lele Wambo  
-# A01372274  
+## Chelsie Salome Lele Wambo  - A01372274  
+## Instructor: Nathan McNinch
+
 
 # Content Structure
 
