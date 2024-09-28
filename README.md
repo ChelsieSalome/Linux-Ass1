@@ -22,13 +22,13 @@
 
 # Introduction
 ## What is SSH?
-SSH (Secure Shell) is a cryptographic network protocol that enables secure communication between two machines over an unsecured network. SSH introduced SSH keys, which are a more secure authentication method than passwprds. It is widely used by system administrators, developers, and anyone needing remote access to servers. 
+SSH (Secure Shell) is a cryptographic network protocol that enables secure communication between two machines over an unsecured network. SSH introduced SSH keys, which are a more secure authentication method than passwords. It is widely used by system administrators, developers, and anyone needing remote access to servers. 
 
 ## What are the Benefits of using ssh-key  Authentication over Password-based Authentication?
-SSH key-based authentication is preferred over passwords because it uses a pair of cryptographic keys—a public and private key—offering stronger security and resistance to brute-force attacks, phishing, and theft. This method provides a more secure and efficient way to authenticate without needing to manage passwords frequently, making it the superior choice for securing server access. 
+SSH key-based authentication is preferred over passwords because it uses a pair of cryptographic keys—a public and private key—offering stronger security and resistance to brute-force attacks, phishing, and theft. This method provides a more secure and efficient way to authenticate without needing to manage passwords frequently. 
 
 ## What is Cloud-init and why use it?
-Cloud-Init is a tool that automates the initial setup and configuration of cloud servers, such as DigitalOcean Droplets. It runs during the first boot of a new instance, executing predefined tasks like setting up users, installing packages, and configuring network settings. Cloud-Init uses configuration files (like cloud-config) to define these tasks, simplifying the deployment of servers.
+Cloud-Init is a tool that automates the initial setup and configuration of cloud servers, such as DigitalOcean Droplets. It runs during the first boot of a new instance, executing predefined tasks like setting up users, installing packages, and configuring network settings. Cloud-Init uses configuration files (like cloud-config) to define these tasks.  
 Here are some of its benefits:
 * **Automated Configuration**:
 When creating a DigitalOcean Droplet, Cloud-Init automates critical tasks, such as installing necessary software, creating users, and configuring SSH keys, all without manual intervention.
@@ -36,8 +36,8 @@ When creating a DigitalOcean Droplet, Cloud-Init automates critical tasks, such 
 * **Efficient Use of SSH Keys**:
 Cloud-Init simplifies the process of adding SSH keys to a Droplet by automatically installing public keys into the authorized_keys file, ensuring secure, passwordless login from the start.
 
-* **Consistency Across Deployments**:
-Cloud-Init ensures every Droplet is configured consistently, using the same settings and scripts, which is essential when deploying multiple servers or scaling infrastructure.
+* **Consistency**:
+Cloud-Init ensures every Droplet is configured consistently, using the same settings and scripts.
 
 ## Intented Audience
 This tutorial for any Information Technology student eager to dive into creating and managing a remote server using DigitalOcean. By the end of this tutorial, you will be able to use the web console or command line (doctl), understand how cloud-init configures Droplets, and connect securely using SSH. You'll also learn how to generate and manage SSH keys for authentication and apply best practices for security in cloud environments.
@@ -53,8 +53,8 @@ This guide assumes that the student:
 
 # I- Technical Requirements
 ## Hardware
-* **Processor**: 1 GHz or faster processor
-* **RAM**:For Droplets with less than 3 GB of RAM, a 32-bit operating system is recommended.
+* **Processor**: 1 GHz or faster processor.
+* **RAM**:For Droplets with less than 3 GB of RAM, a 32-bit operating system is recommended.  
 A minimum of 1 CPU core is required for basic operations, with more cores needed for resource-intensive applications.
 * **PC/Laptop**: A device capable of running a terminal environment and supporting the necessary software tools.
 * **Stable Internet Connection**: Minimum speed of 1 Mbps recommended for optimal performance during configuration and management.
@@ -65,7 +65,7 @@ A minimum of 1 CPU core is required for basic operations, with more cores needed
     * [Mac Command Lines](https://developer.apple.com/library/archive/documentation/OpenSource/Conceptual/ShellScripting/CommandLInePrimer/CommandLine.html)  
     * [Linux Command Lines](https://ubuntu.com/tutorials/command-line-for-beginners#2-a-brief-history-lesson) 
 
->**Note**: We will be refering to your existing droplet running Arch Linux as ***Local Machine**.
+>**Note**: We will be refering to your existing droplet running Arch Linux as **Local Machine**.
 * **Web Browser**: Google Chrome or any Web Browser (latest version).
 
 
@@ -75,10 +75,10 @@ In this section, you will learn how to create SSH keys on your local machine, a 
 
 * **Private Key**: This key remains on your local machine and should be kept secure. It is used to authenticate your identity when connecting to a remote server.
 
-* **Public Key**: This key can be shared freely and is added to the remote server’s authorized keys in the config and cloud-confg files. It allows the server to verify that you are who you claim to be. 
+* **Public Key**: This key can be shared freely and is added to the remote server’s authorized keys in the config and cloud-config files. It allows the server to verify that you are who you claim to be. 
 
 ## Step 1: Generating an SSH Key Pair  
-Follow the steps below to creat an SSH -key pair on your local machine:
+Follow the steps below to create an SSH -key pair on your local machine:
 
 1. Run `mkdir .ssh`  to create an .ssh directory (if not yet created).
 > 
@@ -91,24 +91,26 @@ Follow the steps below to creat an SSH -key pair on your local machine:
 
 * `ed25519`: is a type of public-key algorithm. Other options of public key types include: rsa, dsa & ecdsa. Ed25519 is preferred for new keys due to its superior performance, smaller key sizes, better security, and resistance to certain attacks. (VulnerX, 2024) You can refer to [RSA vs ECDSA vs Ed25519](https://vulnerx.com/ssh-key-algorithms/) for further reading about each public key advantages.  
 
-* `f`: option to specify the file name and path where the key pair of keys will be saved. 
+* `f`: is an option to specify the file name and path where the key pair of keys will be saved. 
 
-* `~/.ssh/key-name`: is the full path to the .ssh directory from the current user' home. Please replace `key-name` with the **key name** that you would have chosen for your key:
-        * The private key will be saved as `key-name`.  
-        * The public key will be saved as `key-name.pub`.  
+* `~/.ssh/key-name`: is the full path to the .ssh directory from the current user' home directory. Please replace `key-name` with the **key name** that you would have chosen for your key:  
+>* The private key will be saved as `key-name`.  
+>* The public key will be saved as `key-name.pub`.  
 
-* `C`: option adds a comment to the key.  
+* `C`: option to add a comment to the key.  
     * `"youremail@email.com"`: is the comment added to the key. This comment is embedded in the public key file and is visible when the key is used.  
-    * **Example**: Let's say your username is Chelsie, your email address is "chelsie@gmail.com"  and you choose to name your key **"wedKEY"**, then the command to create your SSH key pair should look look like this:
-    > `ssh-keygen -t ed25519 -f ~/.ssh/wedKEY -C "chelsie@gmail.com"`  
+    * **Example**: Let's say your email address is "chelsie@gmail.com"  and you choose to name your key **"wedKEY"**, then the command to create your SSH key pair should look like this:
+    `ssh-keygen -t ed25519 -f ~/.ssh/wedKEY -C "chelsie@gmail.com"`  
 
 ## Step 4: Choosing a Passphrase  
-You can protect the private using a **passphrase**. A **passphrase** is just a string of characters used to add an additional layer of security to your private key through encryption.
-To make your life easier and avoid the hassle of remembering a passphrase, you can choose not to set one. To do this, simply hit ENTER twice when prompted for a passphrase. This will create your SSH key without any passphrase protection. Successful completion of the ssh-key should look like: 
+You can protect the private key using a **passphrase**. A **passphrase** is just a string of characters used to add an additional layer of security to your private key through encryption.  
+
+To make your life easier and avoid the hassle of remembering a passphrase, you can choose not to set one. To do this, simply press **ENTER** twice when prompted for a passphrase. This will create your SSH key without any passphrase protection. Successful completion of the ssh-key should look like:   
+
 ![alt text](image-13.png)
 
 ## Step 5: Verifying your SSH Keys  
-Type `cd .ssh` and next `ls` to view the files in the .ssh directory.  
+Type `cd .ssh` > `ls` to view the files in the .ssh directory.  
 > The keys are successfully created if you see the following files in the .ssh directory:  
 * **key-name** *(private key)*  
 * **key-name.pub** *(public key)*  
@@ -117,31 +119,34 @@ Type `cd .ssh` and next `ls` to view the files in the .ssh directory.
 # III- Section 2 - Creating a Droplet running Arch Linux using the `doctl` Command-Line Tool  
 
 ## Overview  
-In this section, you will be guided through the process of creating a Droplet running Arch Linux using the doctl command-line tool.`doctl` is DigitalOcean’s command-line interface that simplifies the management of Droplets and other resources on the platform. This section will cover everything from the installation of doctl to adding your SSH key to DigitalOcean, ensuring secure access to your Droplet.
+In this section, you will be guided through the process of creating a Droplet running Arch Linux using the doctl command-line tool.  
+`doctl` is DigitalOcean’s command-line interface that simplifies the management of Droplets and other resources on the platform. This section will cover everything from the installation of doctl to adding your SSH key to DigitalOcean.
 
 ## Step 1: Installing and Configuring `doctl`.  
 ### a. Installing `doctl`:  
-1. Update your Arch Linux system by running `sudo pacman -Syu`.
+1. Update your Arch Linux system by running `sudo pacman -Syu`.  
+
 **<u>Breakdown of the Command</u>** 
 *  `sudo`: This allows you to run the command with elevated (superuser) privileges since we are performing System updates.
 
 * `pacman`: This is the package manager for Arch Linux and its derivatives. It handles the installation, updating, and removal of software packages.
 
 *  `Syu`:
-    * `-S` (Sync): This option tells pacman to download the package(or upgrade it if it's already installed) and install any required software for the package to function properly.
-    * `-y` (Refresh): This option forces pacman to download the most up-to-date package from the Arch repositories.
-    `-u` (Upgrade): This option upgrades all installed packages on your system to the latest versions available in the repositories.
-2. Run `sudo pacman -S doctl` to install **doctl** on your local machine.
+    * `-S` (Sync): This option tells pacman to download the package(or upgrade it if it's already installed) and install any required software for the package to function properly.  
+    * `-y` (Refresh): This option forces pacman to download the most up-to-date package from the Arch repositories.  
+    `-u` (Upgrade): This option upgrades all installed packages on your system to the latest versions available in the repositories.  
+2. Run `sudo pacman -S doctl` to install **doctl** on your local machine.  
 
 **<u>Breakdown of the Command</u>**
 * `sudo`, `pacman` & `-S` have the same functions here as what was explained above.
 * `doctl`: is the name of the package we want to install.
 
-To check it **doctl** was successfully installed, you can run `doctl version` and ensure you get a similar output to the one on the picture:
+To check it **doctl** was successfully installed, you can run `doctl version` and ensure you get a similar output to the one on the picture:  
+
  ![alt text](image-3.png)
 
 ## b. Creating an API Token 
-An **API Token** serves as a means of **authentication** and **authorization** when creatind a droplet using DigitalOcean's CLI tool **doctl**. Here are some of the functions of the **API Token**:
+An **API Token** serves as a means of **authentication** and **authorization** when creating a droplet using DigitalOcean's CLI tool **doctl**. Here are some of the functions of the **API Token**:
 * **Authentication**: by acting like a password to verify your identity.
 * **Authorization**: by granting permission to execute commands on your DigitalOcean account (droplet creation & management etc.)
 * **Secure Access**: By allowing you to safely access your DigitalOcean account without needing to input your username and password every time.
@@ -151,11 +156,12 @@ Follow the steps below to generate an **API Token**:
  <img src="image-4.png" alt="Example Image" width="200" height = "400"/>
 
 3. On the **Tokens** tab, click **Generate New Token**.  
-4. Type the *<Token Name>* and select **Full Access** to grant the token full permissions > Click **Generate Token**.You can leave the default **Expiration** choice.(As shown on the picture)
+4. Type the **<Token_name>** and select **Full Access** to grant the token full permissions > Click **Generate Token**.
+> **Note**: You can leave the default **Expiration** choice.(As shown on the picture)
 
 ![alt text](image-7.png)
 
-5. Click **Copy** to copy the personal token and save it somewhere for the next step as it will be only be generated once.
+5. Click **Copy** to copy the personal token and save it somewhere for the next step as it will be only be generated once.  
 ![alt text](image-8.png)
 
 ### c. Using the API token to grant account access to doctl 
@@ -165,16 +171,18 @@ Follow the steps below to generate an **API Token**:
 * `auth`: subcommand for authentication
 * `init`: keyword to initialize the authentication process
 * `--context`: to specify a name for this authentication context.
-* `Token1`:is the name of the context we are setting up, you can name it however you want, although it is advised to choose a descriptive name. By specifying a context name, we can easily switch between different sets of credentials or configurations later on. The next picture shows what your screen should look like.
+* `Token1`:is the name of the context we are setting up, you can name it however you want, although it is advised to choose a descriptive name. By specifying a context name, we can easily switch between different sets of credentials or configurations later on.   
+
+The next picture shows what your screen should look like.
 ![alt text](image-9.png)
-> 
+
 2. Enter the **API Token** previously generated as prompted and press **ENTER**.
 
 ### d. Validating that doctl is working properly.
 
-Run `doctl account get`. You should get an output similar to the one on the picture below, indicating that `doctl` now has full access to your DigitalOcean account.
-![alt text](image-10.png)
+Run `doctl account get`. You should get an output similar to the one on the picture below, indicating that `doctl` now has full access to your DigitalOcean account.  
 
+![alt text](image-10.png)
 
 ### e. Adding your ssh-key to DigitalOcean using `doctl`
 Run `doctl compute ssh-key import wedKEYY --public-key-file ~/.ssh/wedKEY.pub` to import the key DigitalOcean.
@@ -185,9 +193,9 @@ Run `doctl compute ssh-key import wedKEYY --public-key-file ~/.ssh/wedKEY.pub` t
 
 * `import`:to import a new SSH public key into your DigitalOcean account.
 
- * `wedKEY`:the name of the key we created in *Section 1, step #3*.
+ * `wedKEY`:the name of the key we created in ***Section 1, step #3***.
 
-* `--public-key-file ~/.ssh/wedKEY.pub`: to specify the file path of the SSH public key we want to import. In this case, it points to the public key file named wedKEY.pub located in the .ssh directory of the user's home folder.
+* `--public-key-file ~/.ssh/wedKEY.pub`: to specify the file path of the SSH public key we want to import. In this case, it points to the public key file named wedKEY.pub located in the .ssh directory of the user's home directory.
 
 
 
@@ -206,8 +214,9 @@ Using a cloud-config file when setting up a Droplet running Arch Linux on Digita
 
 Follow the steps below to create a cloud-config file:
 
-1. Run `sudo pacman -S neovim` to install Neovim on your local machine (if it's not already installed).
-**Breakdown of the command** 
+1. Run `sudo pacman -S neovim` to install Neovim on your local machine (if it's not already installed).  
+
+> **Breakdown of the command** 
 * `-S`: This option stands for "sync" and is used to install a package from the official Arch repositories. It will download the required package along with its dependencies and install them.
 
 * `neovim`: This is the name of the package you're installing. In this case, it's the Neovim text editor
@@ -216,9 +225,9 @@ Follow the steps below to create a cloud-config file:
 
 2. Run `cd .ssh` to move to the **.ssh** directory.
 3. Run `nvim cloud-config.yaml` to create and open the file named **cloud-config.yaml** in **Normal mode**.
-4. Press the key **I** on your keyboard to switch to **Insert Mode**.
-5.  *copy* & *paste* the following configuration: 
->#cloud-config
+4. Press the **I** key on your keyboard to switch to **Insert Mode**.
+5.  *Copy* & *Paste* the following configuration: 
+
 >users:
 >	- name: Chelsie
 >    primary_group: users
@@ -226,7 +235,7 @@ Follow the steps below to create a cloud-config file:
 >    shell: /bin/bash
 >    sudo: ['ALL=(ALL) NOPASSWD:ALL']
 >    ssh-authorized-keys:
->      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIg/IZG9QVEtwbjoO39uE3tmeFKER1cSRPVe4vodU9cY bcspies123@gmail.com
+>      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIg/IZG9QVEtwbjoO39uE3tmeFKER1cSRPVe4vodU9cY lelechelsie@gmail.com
 
 >packages:
 >  - ripgrep
@@ -241,7 +250,7 @@ Follow the steps below to create a cloud-config file:
 
 disable_root: true
 
-**Command Breakdown ...............**
+> **Command Breakdown**
 
 - **users:**: This section defines user accounts to be created on the instance.
 
@@ -266,23 +275,33 @@ You can confirm the **cloud-config.yaml** file has been created by running `cat 
 
 ### Part 2: Creating the Droplet using `doctl`
 
-To create our droplet using `doctl`, we will need: an **image ID**, an **SSH key ID**, a **region** and a **size** ......*WHY ......?*. You can follow the steps below to gather those information:
-* run `doctl compute image list` and copy the **ID** of the Arch Linux image. in this case we will use **165084638**
+To create our droplet using `doctl`, we will need: 
+* An **image ID**: to identifiy the operating system and version you want to run on your Droplet. This should already be available on your DigitalOcean account.  
+
+* An **SSH key ID**: to configure access to your DigitalOcea account without needing a password.  
+
+* A **region**: to specify the physical data center location where your Droplet will be hosted.  
+* A **size** : to determine the resources allocated to your Droplet, including CPU and RAM.  
+
+Follow the steps below to gather those information:
+* run `doctl compute image list` and copy the **ID** of the image linked corresponding to Arch Linux image you added when creating your first droplet. 
 
 * Run `doctl compute size list` to view the different processors and RAM sizes you can create your droplet with.
 > eg: if you want your droplet to have **one processor** and **1GB of RAM** you can copy (take notes) **s-1vcpu-1gb**.
 
 * Run `doctl compute region list` to view a list of available regions and take notes of your favourite **region ID** or **slug**.
 
-> eg: **sfo3** for San Francisco .....*Why sfo3 ....?*
-* Run `doctl compute ssh-key list` to .......
+> eg: **sfo3** for San Francisco  
+
+* Run `doctl compute ssh-key list` to get the **key ID** of the key you previously created, in this case we will copy **wedKEY**'s ID.
 
 Now that we have those information, you can run: `doctl compute droplet create --image 165084638 --size s-1vcpu-1gb --region sfo3 --ssh-keys 43507363 --user-data-file ~/.ssh/cloud-init.yaml --wait wedDroplet` to create the droplet.
-> Depending on the packages, it might take up to *? time....*
+> Depending on the number of packages, it might up to 5 minutes to complete.  
+
 **Command Breakdown**
 * `droplet create`: to creates a new Droplet (virtual machine).
 
-* `--image 165084638`: to pecifiey the image to use for the Droplet. The number 165084638 represents the unique ID of the custom Arch Linux Image we previously added.
+* `--image 165084638`: to pecifiey the image to use for the Droplet. The number 165084638 represents the unique ID of the custom Arch Linux Image you previously added.
 
 * `--size s-1vcpu-1gb`: to defines the size of the Droplet. The **size s-1vcpu-1gb** means:
     * **1 vCPU**: The virtual CPU count.
@@ -331,6 +350,7 @@ Follow the steps below to create a **config file**.
 * **Host**: This defines a shortcut or alias for the connection. We are choosing "wedDroplet" to refer the droplet we previously created. 
 
 * **HostName 128.199.7.130**: This is the Public IPv4 address of the **wedDroplet** we are connecting to, which in this case is 128.199.7.130. (obtained after running `doctl compute droplet list`).
+![alt text](image-15.png)  
 
 * **User Chelsie**: to define the username we will use to connect to the Droplet. In this case, it is Chelsie.
 >**NOTE**: It must match the username in the **cloud-config.yaml** file.
@@ -340,7 +360,7 @@ Follow the steps below to create a **config file**.
 * **IdentityFile ~/.ssh/wedKEY**: to specifie the path to the private key that will be used for authentication. Here, it points to **~/.ssh/wedKEY**, which is the private SSH key we create in **Section 1, step 3** ......
 
 * **StrictHostKeyChecking no**: to disable the verification of the Droplet’s SSH host key.
-Normally, SSH checks the host key the first time you connect to a server to ensure you are connecting to the right machine. Setting this to no allows you to bypass the host key verification, which can be useful for automated connections
+Normally, SSH checks the host key the first time you connect to a server to ensure you are connecting to the right machine. Setting this to no allows you to bypass the host key verification.
 
 * **UserKnownHostsFile /dev/null**: to define the file where SSH will save information about the host keys of servers we've connected to.
 Setting it to /dev/null because we don’t want to store persistent records of host keys.
@@ -348,7 +368,7 @@ Setting it to /dev/null because we don’t want to store persistent records of h
 ## Step 2: Accessing the New droplet
 1. * Run `ssh <droplet name>` to login to the newly create droplet
 
-2. Run `exit` to allow the system to save your changes and restart.
+2. Run `exit` to allow the system to save your changes and reset.
 
 3. Run `ssh wedDroplet`. You should be able to see the output as shown on the picture below, indicating a successful connection to your newly created droplet running Arch Linux.
 ![alt text](image-12.png)
@@ -358,10 +378,3 @@ Setting it to /dev/null because we don’t want to store persistent records of h
 ## General Troubleshooting Guide
 ....................................
 
-
-
-
-
-
-[Environment]::SetEnvironmentVariable("Path", [Environment]::GetEnvironmentVariable("Path", [EnvironmentVariableTarget]::Machine) + ";$env:ProgramFiles\doctl\", [EnvironmentVariableTarget]::Machine)
-$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine")
