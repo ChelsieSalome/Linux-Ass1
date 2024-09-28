@@ -5,6 +5,32 @@ First Assignment ACIT 2420
 # Chelsie Salome Lele Wambo  
 # A01372274  
 
+# Content Structure
+
+## Introduction
+
+>### What is SSH?
+>### What is Cloud-init and what are its benefits?
+>### Intended Audience
+>### Assumptions
+
+## I - Technical Requirements
+>### Software
+>### Hardware
+
+## II- Section 1: Creating SSH  Keys on your Local Machine
+
+## III- Section 2 - Creating a Droplet running Arch Linux using the `doctl` Command-Line Tool
+
+## IV- Section 3: Accessing the Arch Linux Droplet via SSH 
+
+## V- Glossary
+
+## VI- Troubleshooting Guide
+
+## Rerences
+
+
 # CREATING A REMOTE SERVER WITH DigitalOcean  
 
 Follow this tutorial if you are a CIT Term II student getting started with **DigitalOcean** to :  
