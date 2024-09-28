@@ -84,7 +84,7 @@ Follow the steps below to creat an SSH -key pair on your local machine:
 > 
 2. Run `ssh-keygen -t ed25519 -f ~/.ssh/key-name -C "youremail@email.com"` to create the ssh key pair.
 
-**Command Breakdown**  
+**<u>Command Breakdown</u>**
 * `ssh-keygen`: Command-line utility used to generate, manage and convert SSH keys. 
 
 * `-t`: specifies the **type of key** to generate.  
@@ -123,7 +123,7 @@ Type `cd .ssh` and next `ls` to view the files in the .ssh directory.
 ## Step 1: Installing and Configuring `doctl`.  
 ### a. Installing `doctl`:  
 1. Update your Arch Linux system by running `sudo pacman -Syu`.
->**Breakdown of the Command** 
+**<u>Breakdown of the Command</u>** 
 *  `sudo`: This allows you to run the command with elevated (superuser) privileges since we are performing System updates.
 
 * `pacman`: This is the package manager for Arch Linux and its derivatives. It handles the installation, updating, and removal of software packages.
@@ -133,7 +133,7 @@ Type `cd .ssh` and next `ls` to view the files in the .ssh directory.
     * `-y` (Refresh): This option forces pacman to download the most up-to-date package from the Arch repositories.
     `-u` (Upgrade): This option upgrades all installed packages on your system to the latest versions available in the repositories.
 2. Run `sudo pacman -S doctl` to install **doctl** on your local machine.
->**Breakdown of the Command**
+**<u>Breakdown of the Command</u>**
 * `sudo`, `pacman` & `-S` have the same functions here as what was explained above.
 * `doctl`: is the name of the package we want to install.
 
