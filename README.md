@@ -51,7 +51,7 @@ This guide assumes that the student:
 * Has an active DigitalOcean account with sufficient credits to create and manage Droplets.
 * Has previously created a Droplet running Arch Linux, implying access to an Arch Linux image.
 
-# Technical Requirements
+# I- Technical Requirements
 ## Hardware
 * **Processor**: 1 GHz or faster processor
 * **RAM**:For Droplets with less than 3 GB of RAM, a 32-bit operating system is recommended.
@@ -69,7 +69,7 @@ A minimum of 1 CPU core is required for basic operations, with more cores needed
 * **Web Browser**: Google Chrome or any Web Browser (latest version).
 
 
-# Section I - Creating SSH  Keys on your Local Machine  
+# II- Section 1 - Creating SSH  Keys on your Local Machine  
 ## Overview  
 ..... This section will ....
 
@@ -123,7 +123,7 @@ Type `cd .ssh` and next `ls` to view the files in the .ssh directory.
 * **key-name** *(private key)*  
 * **key-name.pub** *(public key)*  
 
-# Section II - Creating a Droplet running Arch Linux using the `doctl` Command-Line Tool  
+# III- Section 2 - Creating a Droplet running Arch Linux using the `doctl` Command-Line Tool  
 
 ## Overview  
 *Explain that this section will guide users through creating a Droplet running Arch Linux using the doctl command-line tool.*
@@ -309,7 +309,7 @@ This size is suitable for small applications or testing environments.
 ## Step 3: Accessing the Arch Linux Droplet  
 **Connecting via SSH**: 
 
-## Section: Establishing the connection through SSH
+# IV- Section 3: Establishing the connection through SSH
 ### Creating an SSH Config File
 
 Each time you connect to your Droplet, you usually need to specify:
@@ -359,6 +359,8 @@ Setting it to /dev/null because we don’t want to store persistent records of h
 
 8. Run `ssh wedDroplet`. You should be able to see the output as shown on the picture below, indicating a successful connection to your newly created droplet running Arch Linux.
 ![alt text](image-12.png)
+
+# V- Glossary
 
 ## General Troubleshooting Guide
 ....................................
