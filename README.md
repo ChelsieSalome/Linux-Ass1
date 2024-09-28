@@ -71,38 +71,27 @@ A minimum of 1 CPU core is required for basic operations, with more cores needed
 
 # II- Section 1 - Creating SSH  Keys on your Local Machine  
 ## Overview  
-..... This section will ....
+In this section, you will learn how to create SSH keys on your local machine, a crucial step for securely accessing remote servers. We will start by exploring the concept of SSH key pairs, which consist of a private key and a public key.
 
-## Step 1: Understanding SSH Key Pairs  
-### Private Key  
-### Public Key  
-### Private Key vs Public Key  
+* **Private Key**: This key remains on your local machine and should be kept secure. It is used to authenticate your identity when connecting to a remote server.
 
-## Step 2: Installing OpenSSH  
-OpenSSH is ...
-* Check if SSH is installed  
-If you have the following versions of OS or newer, then your machine most-likely already have OpenSSH installed:  
-    * Windows 10 or Windows 11  
-    * macOS 10.13  
-    * Most Linux Distros  
+* **Public Key**: This key can be shared freely and is added to the remote server’s authorized keys in the config and cloud-confg files. It allows the server to verify that you are who you claim to be. 
 
-## Step 3: Generating an SSH Key Pair  
+## Step 1: Generating an SSH Key Pair  
+Follow the steps below to creat an SSH -key pair on your local machine:
 
-> **Note:** Since your local machine is a droplet running Arch Linux, the commands we will be running are for Linux-types OS. You can refer to the links provide above if using a differenc OS.
+1. Run `mkdir .ssh`  to create an .ssh directory (if not yet created).
+> 
+2. Run `ssh-keygen -t ed25519 -f ~/.ssh/key-name -C "youremail@email.com"` to create the ssh key pair.
 
-1. Create an .ssh directory (if not yet created) using the command:
-> `mkdir .ssh`  
-2. Create the ssh key pair using the command:
->`ssh-keygen -t ed25519 -f ~/.ssh/key-name -C "youremail@email.com"`  
-
-**Explanation of the command:**  
+**Command Breakdown**  
 * `ssh-keygen`: Command-line utility used to generate, manage and convert SSH keys. 
 
 * `-t`: specifies the **type of key** to generate.  
 
 * `ed25519`: is a type of public-key algorithm. Other options of public key types include: rsa, dsa & ecdsa. Ed25519 is preferred for new keys due to its superior performance, smaller key sizes, better security, and resistance to certain attacks. (VulnerX, 2024) You can refer to [RSA vs ECDSA vs Ed25519](https://vulnerx.com/ssh-key-algorithms/) for further reading about each public key advantages.  
 
-* `f`: option specifies the file name and path where the key pair (both the private and public key) will be saved. 
+* `f`: option to specify the file name and path where the key pair of keys will be saved. 
 
 * `~/.ssh/key-name`: is the full path to the .ssh directory from the current user' home. Please replace `key-name` with the **key name** that you would have chosen for your key:
         * The private key will be saved as `key-name`.  
@@ -110,12 +99,13 @@ If you have the following versions of OS or newer, then your machine most-likely
 
 * `C`: option adds a comment to the key.  
     * `"youremail@email.com"`: is the comment added to the key. This comment is embedded in the public key file and is visible when the key is used.  
-    * **Example**: Let's say your username is Chelsie, your email address is "chelsie@gmail.com"  and you choose to name your key **"wedKEY"**, then the command to create your SSH key pair might look like this:
+    * **Example**: Let's say your username is Chelsie, your email address is "chelsie@gmail.com"  and you choose to name your key **"wedKEY"**, then the command to create your SSH key pair should look look like this:
     > `ssh-keygen -t ed25519 -f ~/.ssh/wedKEY -C "chelsie@gmail.com"`  
 
 ## Step 4: Choosing a Passphrase  
 You can protect the private using a **passphrase**. A **passphrase** is just a string of characters used to add an additional layer of security to your private key through encryption.
-To make your life easier and avoid the hassle of remembering a passphrase, you can choose not to set one. To do this, simply hit ENTER twice when prompted for a passphrase. This will create your SSH key without any passphrase protection, allowing you to use it seamlessly for your project. 
+To make your life easier and avoid the hassle of remembering a passphrase, you can choose not to set one. To do this, simply hit ENTER twice when prompted for a passphrase. This will create your SSH key without any passphrase protection. Successful completion of the ssh-key should look like: 
+![alt text](image-13.png)
 
 ## Step 5: Verifying your SSH Keys  
 Type `cd .ssh` and next `ls` to view the files in the .ssh directory.  
