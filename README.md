@@ -194,10 +194,10 @@ Run `doctl compute ssh-key import wedKEYY --public-key-file ~/.ssh/wedKEY.pub` t
 ## Step 2:  Setting Up the Arch Linux Droplet  
 
 ### Part 1: Creating a Cloud-config File using `doctl` & Cloud-init
-***What is Cloud-init?***
+***What is Cloud-init?***  
 **Cloud-init** is an open-source tool used for automating the initialization and configuration of cloud instances during the boot process. It is designed to provide a flexible way to customize cloud instances at first boot, allowing users to set up essential settings and software without manual intervention.
 
-***Why use a cloud-config file?***
+***Why use a cloud-config file?***  
 Using a cloud-config file when setting up a Droplet running Arch Linux on DigitalOcean simplifies the initialization process by automating essential tasks like package installation, system configuration, and user account setup during the first boot. This automation not only saves time but also ensures consistent configurations according to user specifications while facilitating secure access through the automated addition of SSH keys. 
 
 ***How to create a cloud-config file?*** 
@@ -298,12 +298,8 @@ This size is suitable for small applications or testing environments.
 ![alt text](image-11.png)
 
 
-
-## Step 3: Accessing the Arch Linux Droplet  
-**Connecting via SSH**: 
-
 # IV- Section 3: Establishing the connection through SSH
-### Creating an SSH Config File
+## Step 1: Creating an SSH Config File
 
 Each time you connect to your Droplet, you usually need to specify:
 * The IP address or domain of the Droplet.
@@ -346,11 +342,12 @@ Normally, SSH checks the host key the first time you connect to a server to ensu
 * **UserKnownHostsFile /dev/null**: to define the file where SSH will save information about the host keys of servers we've connected to.
 Setting it to /dev/null because we don’t want to store persistent records of host keys.
 
-* Run `ssh <droplet name>` to login to the newly create droplet
+## Step 2: Accessing the New droplet
+1. * Run `ssh <droplet name>` to login to the newly create droplet
 
-7. Run `exit` to allow the system to save your changes and restart.
+2. Run `exit` to allow the system to save your changes and restart.
 
-8. Run `ssh wedDroplet`. You should be able to see the output as shown on the picture below, indicating a successful connection to your newly created droplet running Arch Linux.
+3. Run `ssh wedDroplet`. You should be able to see the output as shown on the picture below, indicating a successful connection to your newly created droplet running Arch Linux.
 ![alt text](image-12.png)
 
 # V- Glossary
