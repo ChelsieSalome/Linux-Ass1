@@ -195,12 +195,15 @@ Run `doctl compute ssh-key import wedKEYY --public-key-file ~/.ssh/wedKEY.pub` t
 
 ### Part 1: Creating a Cloud-config File using `doctl` & Cloud-init
 ***What is Cloud-init?***  
+
 **Cloud-init** is an open-source tool used for automating the initialization and configuration of cloud instances during the boot process. It is designed to provide a flexible way to customize cloud instances at first boot, allowing users to set up essential settings and software without manual intervention.
 
 ***Why use a cloud-config file?***  
+
 Using a cloud-config file when setting up a Droplet running Arch Linux on DigitalOcean simplifies the initialization process by automating essential tasks like package installation, system configuration, and user account setup during the first boot. This automation not only saves time but also ensures consistent configurations according to user specifications while facilitating secure access through the automated addition of SSH keys. 
 
-***How to create a cloud-config file?*** 
+***How to create a cloud-config file?***   
+
 Follow the steps below to create a cloud-config file:
 
 1. Run `sudo pacman -S neovim` to install Neovim on your local machine (if it's not already installed).
