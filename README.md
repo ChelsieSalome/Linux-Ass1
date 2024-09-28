@@ -51,19 +51,6 @@ This guide assumes that the student:
 * Has an active DigitalOcean account with sufficient credits to create and manage Droplets.
 * Has previously created a Droplet running Arch Linux, implying access to an Arch Linux image.
 
-
--CIT student 
--prior experience with working in a terminal environment
--pre-existing DigitalOcean account
--Droplet running Arch Linux previously created
--Little to no experience with linux
--want to : - Creating and managing a remote server with a cloud service provider.
-- Using the web console or the command line (`doctl`) to create and manage a remote server.
-- Understanding the role of cloud-init for configuring Droplets.
-- Using SSH to connect to a remote server and manage it securely.
-- Generating and managing SSH keys for authentication.
-- Applying best practices for security and access control in cloud environments.
-
 # Technical Requirements
 ## Hardware
 * **Processor**: 1 GHz or faster processor
