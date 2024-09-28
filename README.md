@@ -117,8 +117,7 @@ Type `cd .ssh` and next `ls` to view the files in the .ssh directory.
 # III- Section 2 - Creating a Droplet running Arch Linux using the `doctl` Command-Line Tool  
 
 ## Overview  
-*Explain that this section will guide users through creating a Droplet running Arch Linux using the doctl command-line tool.*
-*Briefly mention that doctl is DigitalOcean’s command-line interface for managing Droplets and other resources.*  
+In this section, you will be guided through the process of creating a Droplet running Arch Linux using the doctl command-line tool.`doctl` is DigitalOcean’s command-line interface that simplifies the management of Droplets and other resources on the platform. This section will cover everything from the installation of doctl to adding your SSH key to DigitalOcean, ensuring secure access to your Droplet.
 
 ## Step 1: Installing and Configuring `doctl`.  
 ### a. Installing `doctl`:  
@@ -133,6 +132,7 @@ Type `cd .ssh` and next `ls` to view the files in the .ssh directory.
     * `-y` (Refresh): This option forces pacman to download the most up-to-date package from the Arch repositories.
     `-u` (Upgrade): This option upgrades all installed packages on your system to the latest versions available in the repositories.
 2. Run `sudo pacman -S doctl` to install **doctl** on your local machine.
+
 **<u>Breakdown of the Command</u>**
 * `sudo`, `pacman` & `-S` have the same functions here as what was explained above.
 * `doctl`: is the name of the package we want to install.
@@ -194,26 +194,27 @@ Run `doctl compute ssh-key import wedKEYY --public-key-file ~/.ssh/wedKEY.pub` t
 ## Step 2:  Setting Up the Arch Linux Droplet  
 
 ### Part 1: Creating a Cloud-config File using `doctl` & Cloud-init
-**What is Cloud-init?** 
+***What is Cloud-init?***
+**Cloud-init** is an open-source tool used for automating the initialization and configuration of cloud instances during the boot process. It is designed to provide a flexible way to customize cloud instances at first boot, allowing users to set up essential settings and software without manual intervention.
 
-**What are thr benefits of a cloud-config file?** 
+***Why use a cloud-config file?***
+Using a cloud-config file when setting up a Droplet running Arch Linux on DigitalOcean simplifies the initialization process by automating essential tasks like package installation, system configuration, and user account setup during the first boot. This automation not only saves time but also ensures consistent configurations according to user specifications while facilitating secure access through the automated addition of SSH keys. 
 
-**How to create a cloud-config file?** 
+***How to create a cloud-config file?*** 
+Follow the steps below to create a cloud-config file:
 
-
-
-2. Install Neovim on your local machine with the command `sudo pacman -S neovim`
->**Breakdown of the command** 
+1. Run `sudo pacman -S neovim` to install Neovim on your local machine (if it's not already installed).
+**Breakdown of the command** 
 * `-S`: This option stands for "sync" and is used to install a package from the official Arch repositories. It will download the required package along with its dependencies and install them.
 
 * `neovim`: This is the name of the package you're installing. In this case, it's the Neovim text editor
 
 **neovim** is sucessfully installed if when running  `nvim version`the output on the screen looks like this: ![alt text](image-1.png)
 
-3. Run `cd .ssh` to move to the **.ssh** directory.
-4. Run `nvim cloud-config.yaml` to create and open the file named **cloud-config.yaml** in **Normal mode**.
-5. Press the key **I** on your keyboard to switch to **Insert Mode**.
-6.  *copy* & *paste* the following configuration: 
+2. Run `cd .ssh` to move to the **.ssh** directory.
+3. Run `nvim cloud-config.yaml` to create and open the file named **cloud-config.yaml** in **Normal mode**.
+4. Press the key **I** on your keyboard to switch to **Insert Mode**.
+5.  *copy* & *paste* the following configuration: 
 >#cloud-config
 >users:
 >	- name: Chelsie
@@ -254,13 +255,14 @@ disable_root: true
 - **ssh-authorized-keys:**: to lists SSH public keys that will be authorized for the user.
 - **ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIg/IZG9QVEtwbjoO39uE3tmeFKER1cSRPVe4vodU9cY bcspies123@gmail.com:** to add a specific SSH public key to the user's account. This is the content of the public key we previously created and paste it there, obtained by running `cat wedKEY.pub`. 
 
-8. Press the **ESC** key on your keyboard to exit the **Insert Mode** 
+6. Press the **ESC** key on your keyboard to exit the **Insert Mode** 
 
-9. Type **:wq** and press **ENTER** to save the changes and exit out of neovim.
+7. Type **:wq** and press **ENTER** to save the changes and exit out of neovim.
 
 You can confirm the **cloud-config.yaml** file has been created by running `cat cloud-config.yaml`.
 
 ### Part 2: Creating the Droplet using `doctl`
+
 To create our droplet using `doctl`, we will need: an **image ID**, an **SSH key ID**, a **region** and a **size** ......*WHY ......?*. You can follow the steps below to gather those information:
 * run `doctl compute image list` and copy the **ID** of the Arch Linux image. in this case we will use **165084638**
 
