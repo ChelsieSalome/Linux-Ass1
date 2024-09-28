@@ -5,10 +5,9 @@
 
 
 # Content Structure
-
 ## Introduction
->### What is SSH?
->### What is Cloud-init and what are its benefits?
+>### What is SSH and what are SSH-keys?
+>### What is Cloud-init and why use it?
 >### Intended Audience
 >### Assumptions
 ## I - Technical Requirements
@@ -21,32 +20,67 @@
 ## VI- Troubleshooting Guide
 ## Rerences
 
+# Introduction
+## What is SSH?
+SSH (Secure Shell) is a cryptographic network protocol that enables secure communication between two machines over an unsecured network. SSH introduced SSH keys, which are a more secure authentication method than passwprds. It is widely used by system administrators, developers, and anyone needing remote access to servers. 
 
-# CREATING A REMOTE SERVER WITH DigitalOcean  
+## What are the Benefits of using ssh-key  Authentication over Password-based Authentication?
+SSH key-based authentication is preferred over passwords because it uses a pair of cryptographic keys—a public and private key—offering stronger security and resistance to brute-force attacks, phishing, and theft. This method provides a more secure and efficient way to authenticate without needing to manage passwords frequently, making it the superior choice for securing server access. 
 
-Follow this tutorial if you are a CIT Term II student getting started with **DigitalOcean** to :  
-- Create SSH keys on your local machine.
-- Add a custom Arch Linux image using the web console
-- Create a Droplet running Arch Linux using the DigitalOcean web console.
-- Use a cloud-init configuration file to automate initial setup tasks (e.g., user creation).
-- Connect to your server using your SSH keys.  
+## What is Cloud-init and why use it?
+Cloud-Init is a tool that automates the initial setup and configuration of cloud servers, such as DigitalOcean Droplets. It runs during the first boot of a new instance, executing predefined tasks like setting up users, installing packages, and configuring network settings. Cloud-Init uses configuration files (like cloud-config) to define these tasks, simplifying the deployment of servers.
+Here are some of its benefits:
+* **Automated Configuration**:
+When creating a DigitalOcean Droplet, Cloud-Init automates critical tasks, such as installing necessary software, creating users, and configuring SSH keys, all without manual intervention.
 
-# Introduction  
-## What are SSH Keys?  
-1. What is SSH (Secure Shell) and why is it commonly used for communication between machines?  
+* **Efficient Use of SSH Keys**:
+Cloud-Init simplifies the process of adding SSH keys to a Droplet by automatically installing public keys into the authorized_keys file, ensuring secure, passwordless login from the start.
 
-2. What are the benefits of SSH Keys  
-3. Why is SSH key-based authentication preferred to password-based authentication  
+* **Consistency Across Deployments**:
+Cloud-Init ensures every Droplet is configured consistently, using the same settings and scripts, which is essential when deploying multiple servers or scaling infrastructure.
 
-# Prerequisites  
-What you will need:  
-* A Linux, macOS, or Windows machine (with Git Bash or PowerShell installed for Windows users).  
-* Basic familiarity with the command line. Here are some basic command lines for different OS:
+## Intented Audience
+This tutorial for any Information Technology student eager to dive into creating and managing a remote server using DigitalOcean. By the end of this tutorial, you will be able to use the web console or command line (doctl), understand how cloud-init configures Droplets, and connect securely using SSH. You'll also learn how to generate and manage SSH keys for authentication and apply best practices for security in cloud environments.
+
+## Assumptions
+This guide assumes that the student:
+
+* Has familiarity with basic Linux commands and navigation within a Linux environment.
+* Has experience working in a terminal environment and can use a text editor (like nano or vim) for configuration tasks.
+* Has the ability to install software on their local machine, including command-line tools like doctl.
+* Has an active DigitalOcean account with sufficient credits to create and manage Droplets.
+* Has previously created a Droplet running Arch Linux, implying access to an Arch Linux image.
+
+
+-CIT student 
+-prior experience with working in a terminal environment
+-pre-existing DigitalOcean account
+-Droplet running Arch Linux previously created
+-Little to no experience with linux
+-want to : - Creating and managing a remote server with a cloud service provider.
+- Using the web console or the command line (`doctl`) to create and manage a remote server.
+- Understanding the role of cloud-init for configuring Droplets.
+- Using SSH to connect to a remote server and manage it securely.
+- Generating and managing SSH keys for authentication.
+- Applying best practices for security and access control in cloud environments.
+
+# Technical Requirements
+## Hardware
+* **Processor**: 1 GHz or faster processor
+* **RAM**:For Droplets with less than 3 GB of RAM, a 32-bit operating system is recommended.
+A minimum of 1 CPU core is required for basic operations, with more cores needed for resource-intensive applications.
+* **PC/Laptop**: A device capable of running a terminal environment and supporting the necessary software tools.
+* **Stable Internet Connection**: Minimum speed of 1 Mbps recommended for optimal performance during configuration and management.
+
+## Software:
+* **OS**: Because you already have a DigitalOcean droplet running **Arch Linux**, the commands used will be compatible with a Linux-based terminal. You can refer to the resources below if you have a different Operating System. 
     * [Windows Command Lines](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/windows-commands#c)  
     * [Mac Command Lines](https://developer.apple.com/library/archive/documentation/OpenSource/Conceptual/ShellScripting/CommandLInePrimer/CommandLine.html)  
     * [Linux Command Lines](https://ubuntu.com/tutorials/command-line-for-beginners#2-a-brief-history-lesson) 
 
-* AN ARCH Linux image ........ 
+>**Note**: We will be refering to your existing droplet running Arch Linux as ***Local Machine**.
+* **Web Browser**: Google Chrome or any Web Browser (latest version).
+
 
 # Section I - Creating SSH  Keys on your Local Machine  
 ## Overview  
