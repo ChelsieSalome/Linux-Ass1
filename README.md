@@ -102,14 +102,14 @@ Follow the steps below to create an SSH -key pair on your local machine:
     * **Example**: Let's say your email address is "chelsie@gmail.com"  and you choose to name your key **"wedKEY"**, then the command to create your SSH key pair should look like this:
     `ssh-keygen -t ed25519 -f ~/.ssh/wedKEY -C "chelsie@gmail.com"`  
 
-## Step 4: Choosing a Passphrase  
+## Step 2: Choosing a Passphrase  
 You can protect the private key using a **passphrase**. A **passphrase** is just a string of characters used to add an additional layer of security to your private key through encryption.  
 
 To make your life easier and avoid the hassle of remembering a passphrase, you can choose not to set one. To do this, simply press **ENTER** twice when prompted for a passphrase. This will create your SSH key without any passphrase protection. Successful completion of the ssh-key should look like:   
 
 ![alt text](image-13.png)
 
-## Step 5: Verifying your SSH Keys  
+## Step 3: Verifying your SSH Keys  
 Type `cd .ssh` > `ls` to view the files in the .ssh directory.  
 > The keys are successfully created if you see the following files in the .ssh directory:  
 * **key-name** *(private key)*  
@@ -373,7 +373,8 @@ Setting it to /dev/null because we don’t want to store persistent records of h
 3. Run `ssh wedDroplet`. You should be able to see the output as shown on the picture below, indicating a successful connection to your newly created droplet running Arch Linux.
 ![alt text](image-12.png)
 
-# V- Troubleshooting Guide 
+# V- Troubleshooting Guide   
+This troubleshooting guide provides solutions to common issues encountered in each section of the assignment, helping you effectively resolve problems related to creating SSH keys, managing Arch Linux droplets, and implementing security best practices in a cloud environment.  
 ## 1. Creating SSH Keys on Your Local Machine  
 
 * **Issue: SSH key generation fails**  
@@ -442,3 +443,18 @@ Permissions granted to a user to execute commands with administrator privileges.
 
 # References
 
+Admin. (2023, February 9). What is SSH-Keygen & How to use it to generate a new ssh key?. What is ssh-keygen & How to Use It to Generate a New SSH Key? https://www.ssh.com/academy/ssh/keygen#what-is-ssh-keygen?   
+
+Basic syntax. Markdown Guide. (n.d.). https://www.markdownguide.org/basic-syntax/   
+
+Gawde, V. (2024, June 20). SSH key algorithms: RSA vs Ecdsa vs ED25519. VulnerX. https://vulnerx.com/ssh-key-algorithms/   
+
+How to create a droplet. DigitalOcean Documentation. (n.d.-a). https://docs.digitalocean.com/products/droplets/how-to/create/   
+
+How to install and configure doctl. DigitalOcean Documentation. (n.d.-b). https://docs.digitalocean.com/reference/doctl/how-to/install/   
+
+INIT documentation¶. cloud. (n.d.). https://cloudinit.readthedocs.io/en/latest/   
+
+What is SSH? | secure shell (SSH) protocol | cloudflare. (n.d.-a). https://www.cloudflare.com/learning/access-management/what-is-ssh/   
+
+What is SSH? | secure shell (SSH) protocol | cloudflare. (n.d.-b). https://www.cloudflare.com/learning/access-management/what-is-ssh/   
