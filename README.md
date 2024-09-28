@@ -1,4 +1,3 @@
-
 # ACIT 2420 ASSIGNMENT I  
 ## Salome Chelsie Lele Wambo  - A01372274  
 ## Instructor: Nathan McNinch
@@ -7,14 +6,14 @@
 # Content Structure
 ## Introduction
 >### What is SSH and what are SSH-keys?
->### What is Cloud-init and why use it?
+>### What is Cloud-init and Why use it?
 >### Intended Audience
 >### Assumptions
 ## I - Technical Requirements
 >### Software
 >### Hardware
 ## II- Section 1: Creating SSH  Keys on your Local Machine
-## III- Section 2 - Creating a Droplet running Arch Linux using the `doctl` Command-Line Tool
+## III- Section 2 - Creating a Droplet Running Arch Linux Using the `doctl` Command-Line Tool
 ## IV- Section 3: Accessing the Arch Linux Droplet via SSH 
 ## V- Troubleshooting Guide
 ## VI- Glossary 
@@ -24,10 +23,10 @@
 ## What is SSH?
 SSH (Secure Shell) is a cryptographic network protocol that enables secure communication between two machines over an unsecured network. SSH introduced SSH keys, which are a more secure authentication method than passwords. It is widely used by system administrators, developers, and anyone needing remote access to servers. 
 
-## What are the Benefits of using ssh-key  Authentication over Password-based Authentication?
+## What are the Benefits of Using ssh-key  Authentication over Password-based Authentication?
 SSH key-based authentication is preferred over passwords because it uses a pair of cryptographic keys—a public and private key—offering stronger security and resistance to brute-force attacks, phishing, and theft. This method provides a more secure and efficient way to authenticate without needing to manage passwords frequently. 
 
-## What is Cloud-init and why use it?
+## What is Cloud-init and Why Use it?
 Cloud-Init is a tool that automates the initial setup and configuration of cloud servers, such as DigitalOcean Droplets. It runs during the first boot of a new instance, executing predefined tasks like setting up users, installing packages, and configuring network settings. Cloud-Init uses configuration files (like cloud-config) to define these tasks.  
 Here are some of its benefits:
 * **Automated Configuration**:
@@ -39,7 +38,7 @@ Cloud-Init simplifies the process of adding SSH keys to a Droplet by automatical
 * **Consistency**:
 Cloud-Init ensures every Droplet is configured consistently, using the same settings and scripts.
 
-## Intented Audience
+## Intended Audience
 This tutorial for any Information Technology student eager to dive into creating and managing a remote server using DigitalOcean. By the end of this tutorial, you will be able to use the web console or command line (doctl), understand how cloud-init configures Droplets, and connect securely using SSH. You'll also learn how to generate and manage SSH keys for authentication and apply best practices for security in cloud environments.
 
 ## Assumptions
@@ -59,7 +58,7 @@ A minimum of 1 CPU core is required for basic operations, with more cores needed
 * **PC/Laptop**: A device capable of running a terminal environment and supporting the necessary software tools.
 * **Stable Internet Connection**: Minimum speed of 1 Mbps recommended for optimal performance during configuration and management.
 
-## Software:
+## Software
 * **OS**: Because you already have a DigitalOcean droplet running **Arch Linux**, the commands used will be compatible with a Linux-based terminal. You can refer to the resources below if you have a different Operating System. 
     * [Windows Command Lines](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/windows-commands#c)  
     * [Mac Command Lines](https://developer.apple.com/library/archive/documentation/OpenSource/Conceptual/ShellScripting/CommandLInePrimer/CommandLine.html)  
@@ -77,7 +76,7 @@ In this section, you will learn how to create SSH keys on your local machine, a 
 
 * **Public Key**: This key can be shared freely and is added to the remote server’s authorized keys in the config and cloud-config files. It allows the server to verify that you are who you claim to be. 
 
-## Step 1: Generating an SSH Key Pair  
+## Step 1: Generating an SSH Key-Pair  
 Follow the steps below to create an SSH -key pair on your local machine:
 
 1. Run `mkdir .ssh`  to create an .ssh directory (if not yet created).
@@ -454,6 +453,8 @@ Permissions granted to a user to execute commands with administrator privileges.
 Admin. (2023, February 9). What is SSH-Keygen & How to use it to generate a new ssh key?. What is ssh-keygen & How to Use It to Generate a New SSH Key? https://www.ssh.com/academy/ssh/keygen#what-is-ssh-keygen?   
 
 Basic syntax. Markdown Guide. (n.d.). https://www.markdownguide.org/basic-syntax/   
+
+Using doctl (https://docs.digitalocean.com/reference/doctl/)
 
 Gawde, V. (2024, June 20). SSH key algorithms: RSA vs Ecdsa vs ED25519. VulnerX. https://vulnerx.com/ssh-key-algorithms/   
 
