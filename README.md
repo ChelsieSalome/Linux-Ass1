@@ -99,8 +99,8 @@ Follow the steps below to create an SSH -key pair on your local machine:
 
 * `C`: option to add a comment to the key.  
     * `"youremail@email.com"`: is the comment added to the key. This comment is embedded in the public key file and is visible when the key is used.  
-    * **Example**: Let's say your email address is "chelsie@gmail.com"  and you choose to name your key **"wedKEY"**, then the command to create your SSH key pair should look like this:
-    `ssh-keygen -t ed25519 -f ~/.ssh/wedKEY -C "chelsie@gmail.com"`  
+    * **Example**: Let's say your email address is "chelsie@gmail.com"  and you choose to name your key **"wedKEYY"**, then the command to create your SSH key pair should look like this:
+    `ssh-keygen -t ed25519 -f ~/.ssh/wedKEYY -C "chelsie@gmail.com"`  
 
 ## Step 2: Choosing a Passphrase  
 You can protect the private key using a **passphrase**. A **passphrase** is just a string of characters used to add an additional layer of security to your private key through encryption.  
@@ -110,7 +110,7 @@ To make your life easier and avoid the hassle of remembering a passphrase, you c
 ![alt text](image-13.png)
 
 ## Step 3: Verifying your SSH Keys  
-Type `cd .ssh` > `ls` to view the files in the .ssh directory.  
+Run `cd .ssh` > `ls` to view the files in the .ssh directory.  
 > The keys are successfully created if you see the following files in the .ssh directory:  
 * **key-name** *(private key)*  
 * **key-name.pub** *(public key)*  
@@ -141,7 +141,7 @@ In this section, you will be guided through the process of creating a Droplet ru
 * `sudo`, `pacman` & `-S` have the same functions here as what was explained above.
 * `doctl`: is the name of the package we want to install.
 
-To check it **doctl** was successfully installed, you can run `doctl version` and ensure you get a similar output to the one on the picture:  
+To check if **doctl** was successfully installed, you can run `doctl version` and ensure you get a similar output to the one on the picture:  
 
  ![alt text](image-3.png)
 
@@ -149,7 +149,8 @@ To check it **doctl** was successfully installed, you can run `doctl version` an
 An **API Token** serves as a means of **authentication** and **authorization** when creating a droplet using DigitalOcean's CLI tool **doctl**. Here are some of the functions of the **API Token**:
 * **Authentication**: by acting like a password to verify your identity.
 * **Authorization**: by granting permission to execute commands on your DigitalOcean account (droplet creation & management etc.)
-* **Secure Access**: By allowing you to safely access your DigitalOcean account without needing to input your username and password every time.
+* **Secure Access**: By allowing you to safely access your DigitalOcean account without needing to input your username and password every time.  
+
 Follow the steps below to generate an **API Token**:
 1. log into your DigitalOcean Account (if not logged in yet)
 2. Scroll down the **Side bar** and click **API**. (As shown on the picture)
@@ -161,7 +162,7 @@ Follow the steps below to generate an **API Token**:
 
 ![alt text](image-7.png)
 
-5. Click **Copy** to copy the personal token and save it somewhere for the next step as it will be only be generated once.  
+5. Click **Copy** to copy the personal token and save it somewhere for the next step as it will be only be generated **ONCE**.  
 ![alt text](image-8.png)
 
 ### c. Using the API token to grant account access to doctl 
@@ -185,7 +186,7 @@ Run `doctl account get`. You should get an output similar to the one on the pict
 ![alt text](image-10.png)
 
 ### e. Adding your ssh-key to DigitalOcean using `doctl`
-Run `doctl compute ssh-key import wedKEYY --public-key-file ~/.ssh/wedKEY.pub` to import the key DigitalOcean.
+Run `doctl compute ssh-key import wedKEYY --public-key-file ~/.ssh/wedKEYY.pub` to import the key DigitalOcean.
 >**Command breakdown**
 * `compute`: subcommand to indicate that the operation relates to compute resources, such as Droplets (virtual machines).
 
@@ -193,9 +194,9 @@ Run `doctl compute ssh-key import wedKEYY --public-key-file ~/.ssh/wedKEY.pub` t
 
 * `import`:to import a new SSH public key into your DigitalOcean account.
 
- * `wedKEY`:the name of the key we created in ***Section 1, step #3***.
+ * `wedKEYY`:the name of the key we created in ***Section 1, step #3***.
 
-* `--public-key-file ~/.ssh/wedKEY.pub`: to specify the file path of the SSH public key we want to import. In this case, it points to the public key file named wedKEY.pub located in the .ssh directory of the user's home directory.
+* `--public-key-file ~/.ssh/wedKEYY.pub`: to specify the file path of the SSH public key we want to import. In this case, it points to the public key file named wedKEYY.pub located in the .ssh directory of the user's home directory.
 
 
 
@@ -265,7 +266,7 @@ disable_root: true
 - **sudo: ['ALL=(ALL) NOPASSWD:ALL']**: to configures the user to have sudo privileges without needing to enter a password for any command. 
 
 - **ssh-authorized-keys:**: to lists SSH public keys that will be authorized for the user.
-- **ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIg/IZG9QVEtwbjoO39uE3tmeFKER1cSRPVe4vodU9cY lelechelsie@gmail.com:** to add a specific SSH public key to the user's account. This is the content of the public key we previously created and paste it there, obtained by running `cat wedKEY.pub`. 
+- **ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIg/IZG9QVEtwbjoO39uE3tmeFKER1cSRPVe4vodU9cY lelechelsie@gmail.com:** to add a specific SSH public key to the user's account. This is the content of the public key we previously created and paste it there, obtained by running `cat wedKEYY.pub`. 
 
 6. Press the **ESC** key on your keyboard to exit the **Insert Mode** 
 
@@ -284,16 +285,20 @@ To create our droplet using `doctl`, we will need:
 * A **size** : to determine the resources allocated to your Droplet, including CPU and RAM.  
 
 Follow the steps below to gather those information:
-* run `doctl compute image list` and copy the **ID** of the image linked corresponding to Arch Linux image you added when creating your first droplet. 
+* run `doctl compute image list` and copy the **ID** of the image linked corresponding to Arch Linux image you added when creating your first droplet.  
+![alt text](image-19.png)  
 
 * Run `doctl compute size list` to view the different processors and RAM sizes you can create your droplet with.
-> eg: if you want your droplet to have **one processor** and **1GB of RAM** you can copy (take notes) **s-1vcpu-1gb**.
+> eg: if you want your droplet to have **one processor** and **1GB of RAM** you can copy (take notes) **s-1vcpu-1gb**.  
+![alt text](image-18.png)   
 
-* Run `doctl compute region list` to view a list of available regions and take notes of your favourite **region ID** or **slug**.
+* Run `doctl compute region list` to view a list of available regions and take notes of your favourite **region ID** or **slug**.  
+![alt text](image-17.png)  
 
 > eg: **sfo3** for San Francisco  
 
-* Run `doctl compute ssh-key list` to get the **key ID** of the key you previously created, in this case we will copy **wedKEY**'s ID.
+* Run `doctl compute ssh-key list` to get the **key ID** of the key you previously created, in this case we will copy **wedKEYY**'s ID.  
+![alt text](image-16.png)
 
 Now that we have those information, you can run: `doctl compute droplet create --image 165084638 --size s-1vcpu-1gb --region sfo3 --ssh-keys 43507363 --user-data-file ~/.ssh/cloud-init.yaml --wait wedDroplet` to create the droplet.
 > Depending on the number of packages, it might up to 5 minutes to complete.  
@@ -341,7 +346,7 @@ Follow the steps below to create a **config file**.
     >  HostName 128.199.7.130  
     >  User Chelsie  
     >  PreferredAuthentications publickey  
-    >  IdentityFile ~/.ssh/wedKEY  
+    >  IdentityFile ~/.ssh/wedKEYY  
     >  StrictHostKeyChecking no  
     >  UserKnownHostsFile /dev/null  
 
@@ -357,7 +362,7 @@ Follow the steps below to create a **config file**.
 
 * **PreferredAuthentications publickey**: to tell SSH to use public key authentication as the preferred method for connecting.
 
-* **IdentityFile ~/.ssh/wedKEY**: to specifie the path to the private key that will be used for authentication. Here, it points to **~/.ssh/wedKEY**, which is the private SSH key we create in **Section 1, step 3** ......
+* **IdentityFile ~/.ssh/wedKEYY**: to specifie the path to the private key that will be used for authentication. Here, it points to **~/.ssh/wedKEYY**, which is the private SSH key we create in **Section 1, step 3** ......
 
 * **StrictHostKeyChecking no**: to disable the verification of the Droplet’s SSH host key.
 Normally, SSH checks the host key the first time you connect to a server to ensure you are connecting to the right machine. Setting this to no allows you to bypass the host key verification.
@@ -371,7 +376,10 @@ Setting it to /dev/null because we don’t want to store persistent records of h
 2. Run `exit` to allow the system to save your changes and reset.
 
 3. Run `ssh wedDroplet`. You should be able to see the output as shown on the picture below, indicating a successful connection to your newly created droplet running Arch Linux.
-![alt text](image-12.png)
+![alt text](image-20.png)
+
+You now have an Arch Linux droplet available with the specified settings and resources to you. To exit and close the session, simply run `exit` as shown on the picture:   
+![alt text](image-22.png)  
 
 # V- Troubleshooting Guide   
 This troubleshooting guide provides solutions to common issues encountered in each section of the assignment, helping you effectively resolve problems related to creating SSH keys, managing Arch Linux droplets, and implementing security best practices in a cloud environment.  
